@@ -119,9 +119,6 @@ async function handleConfirmBooking() {
     // Preenche a boarding pass com os dados retornados pelo backend
     fillBoardingPass(booking);
 
-    // Exibe a seção de confirmação
-    document.getElementById('voo-success-section').scrollIntoView({ behavior: 'smooth' });
-
     showToast('Reserva confirmada com sucesso!', 'success');
   } catch (err) {
     showToast(err.message || 'Erro ao confirmar reserva.', 'error');
@@ -132,23 +129,39 @@ async function handleConfirmBooking() {
 
 /* ── Preenche a boarding pass visualmente ────────────────── */
 
+const CITY_NAMES = {
+  JFK:'NEW YORK, US', BOS:'BOSTON, US',   YEG:'EDMONTON, CA',
+  YYZ:'TORONTO, CA',  LHR:'LONDON, UK',   AUH:'ABU DHABI, AE',
+  DXB:'DUBAI, AE',    SYD:'SYDNEY, AU',   WLG:'WELLINGTON, NZ',
+  GIG:'RIO DE JANEIRO, BR', REC:'RECIFE, BR', KEF:'REYKJAVÍK, IS'
+};
+
 function fillBoardingPass(booking) {
   const set = (id, val) => {
     const el = document.getElementById(id);
-    if (el && val) el.textContent = val;
+    if (el && val !== undefined && val !== null) el.textContent = val;
   };
 
   set('bp-locator',     booking.locator);
   set('bp-flight-num',  booking.flightNum);
   set('bp-origin',      booking.origin);
+  set('bp-origin-city', CITY_NAMES[booking.origin] || booking.origin);
   set('bp-destination', booking.destination);
-  set('bp-seat',        booking.seat || '01C');
+  set('bp-dest-city',   CITY_NAMES[booking.destination] || booking.destination);
+  set('bp-seat',        booking.seat || '—');
   set('bp-gate',        booking.gate);
   set('bp-boarding',    booking.boarding);
-  set('bp-passenger',   booking.passenger?.name || '');
-  set('bp-class',       booking.flightClass === 'EXECUTIVE' ? 'BUSINESS PLUS'
-                      : booking.flightClass === 'PREMIUM_ECONOMY' ? 'PREMIUM ECONOMY'
+  set('bp-passenger',   booking.passenger?.name?.toUpperCase() || '');
+  set('bp-class',       booking.flightClass === 'EXECUTIVE'       ? 'FIRST CLASS'
+                      : booking.flightClass === 'PREMIUM_ECONOMY' ? 'BUSINESS PLUS'
                       : 'ECONOMY');
+
+  // Garante que a seção está visível
+  const ss = document.getElementById('voo-success-section');
+  if (ss) {
+    ss.classList.remove('hidden');
+    setTimeout(() => ss.scrollIntoView({ behavior: 'smooth', block: 'start' }), 150);
+  }
 }
 
 /* ── Toast de feedback ───────────────────────────────────── */
