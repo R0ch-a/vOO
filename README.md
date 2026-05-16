@@ -1,5 +1,5 @@
 # vOO Airline — Backend
-
+<img width="2160" height="3840" alt="image" src="https://github.com/user-attachments/assets/0c64d172-bd69-4522-837c-d9069aeda5b5" />
 API REST da companhia aérea vOO, desenvolvida como projeto acadêmico de **Programação Orientada a Objetos** com Java 21 e Spring Boot 3.
 
 ---
