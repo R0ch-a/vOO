@@ -1,5 +1,7 @@
 package com.voo.airline.entity;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import com.voo.airline.enums.BookingStatus;
 import com.voo.airline.enums.FlightClass;
 import com.voo.airline.enums.FlightType;
@@ -42,35 +44,39 @@ public class Booking extends AbstractEntity {
     @Column(name = "ret_date")
     private LocalDate retDate;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "flight_type", nullable = false, columnDefinition = "flight_type_enum")
+    // flightType
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(name = "flight_type")
     private FlightType flightType;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "flight_class", nullable = false, columnDefinition = "flight_class_enum")
+    // flightClass
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(name = "flight_class")
     private FlightClass flightClass;
 
+    // status
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(nullable = false)
+    private BookingStatus status;
+    
+    // ← adicione aqui ↓
     @Column(length = 10)
     private String seat;
-
+    
     @Column(length = 10)
     private String gate;
-
+    
     @Column(length = 100)
     private String aircraft;
-
+    
     @Column(length = 10)
     private String departure;
-
+    
     @Column(length = 10)
     private String boarding;
-
+    
     @Column(name = "total_price", nullable = false, precision = 10, scale = 2)
     private BigDecimal totalPrice;
-
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "booking_status_enum")
-    private BookingStatus status;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "passenger_id")

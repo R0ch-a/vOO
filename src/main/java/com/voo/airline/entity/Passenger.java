@@ -1,5 +1,7 @@
 package com.voo.airline.entity;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import com.voo.airline.enums.DocType;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -39,7 +41,8 @@ public class Passenger extends AbstractEntity {
     private LocalDate birthDate;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "doc_type", columnDefinition = "doc_type_enum")
+    @Column(name = "doc_type")
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
     private DocType docType;
 
     @Column(name = "doc_number", length = 60)

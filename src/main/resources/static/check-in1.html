@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Manrope:wght@500;600;700;800&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-tint": "#7b5800",
+                        "on-error-container": "#93000a",
+                        "surface-dim": "#dadada",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f9f9f9",
+                        "surface-container": "#eeeeee",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#636262",
+                        "primary-container": "#986d00",
+                        "tertiary-fixed": "#e3e2e2",
+                        "surface-container-highest": "#e2e2e2",
+                        "primary": "#785600",
+                        "on-primary-container": "#fffbff",
+                        "surface-container-high": "#e8e8e8",
+                        "tertiary-fixed-dim": "#c7c6c6",
+                        "on-error": "#ffffff",
+                        "primary-fixed-dim": "#f7bd48",
+                        "on-primary-fixed": "#271900",
+                        "on-primary": "#ffffff",
+                        "on-surface": "#1a1c1c",
+                        "inverse-on-surface": "#f1f1f1",
+                        "outline": "#817563",
+                        "surface-variant": "#e2e2e2",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "outline-variant": "#d3c4af",
+                        "secondary-fixed": "#e5e2e1",
+                        "on-secondary": "#ffffff",
+                        "on-tertiary-container": "#fefcfc",
+                        "surface-container-low": "#f3f3f3",
+                        "on-secondary-fixed-variant": "#474746",
+                        "error": "#ba1a1a",
+                        "tertiary": "#5c5c5c",
+                        "surface": "#f9f9f9",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-surface-variant": "#4f4535",
+                        "error-container": "#ffdad6",
+                        "primary-fixed": "#ffdea6",
+                        "secondary": "#5f5e5e",
+                        "on-tertiary-fixed-variant": "#464747",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "on-primary-fixed-variant": "#5d4200",
+                        "tertiary-container": "#747474",
+                        "inverse-surface": "#2f3131",
+                        "inverse-primary": "#f7bd48",
+                        "background": "#f9f9f9",
+                        "secondary-container": "#e2dfde",
+                        "on-background": "#1a1c1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "container-max": "1280px",
+                        "margin-desktop": "64px",
+                        "base-unit": "8px",
+                        "margin-mobile": "16px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "label-caps": ["Space Grotesk"],
+                        "headline-md": ["Manrope"],
+                        "flight-data": ["Space Grotesk"],
+                        "display-lg": ["Manrope"],
+                        "body-sm": ["Inter"],
+                        "body-base": ["Inter"]
+                    },
+                    "fontSize": {
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "flight-data": ["20px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                        "body-base": ["16px", {"lineHeight": "24px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .perforation {
+            background-image: radial-gradient(circle at 1px 1px, transparent 1px, white 1px);
+            background-size: 8px 8px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-base selection:bg-primary-fixed selection:text-on-primary-fixed">
+<!-- TopAppBar -->
+<header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-md fixed top-0 w-full z-50 border-b border-slate-200 dark:border-slate-800 shadow-[0px_10px_30px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-center h-20 px-8 max-w-screen-2xl mx-auto">
+<div class="text-4xl font-black tracking-tighter text-yellow-700 dark:text-yellow-500">vOO</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="font-manrope text-sm font-medium tracking-wide text-slate-600 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-yellow-400" href="index.html">Book</a>
+<a class="font-manrope text-sm font-medium tracking-wide text-slate-600 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-yellow-400" href="my-trips.html">My Trips</a>
+<a class="font-manrope text-sm font-medium tracking-wide text-slate-600 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-yellow-400" href="flight-status.html">Flight Status</a>
+<a class="font-manrope text-sm font-medium tracking-wide text-yellow-700 dark:text-yellow-500 border-b-2 border-yellow-700 dark:border-yellow-500 pb-1" href="check-in.html">Check-in</a>
+</nav>
+<div class="flex items-center space-x-6">
+<span class="material-symbols-outlined text-slate-600 cursor-pointer">language</span>
+<span class="material-symbols-outlined text-slate-600 cursor-pointer">support</span>
+<button class="bg-primary text-white px-6 py-2 rounded-lg font-manrope text-sm font-semibold active:scale-95 transition-all">Sign In</button>
+</div>
+</div>
+</header>
+<main class="pt-32 pb-24 px-8 max-w-screen-2xl mx-auto min-h-screen">
+<!-- Step Indicator -->
+<div class="flex justify-center mb-16">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-caps text-label-caps">1</span>
+<span class="font-label-caps text-label-caps text-primary">FIND FLIGHT</span>
+</div>
+<div class="w-12 h-px bg-outline-variant"></div>
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full border border-outline text-outline flex items-center justify-center font-label-caps text-label-caps">2</span>
+<span class="font-label-caps text-label-caps text-outline">PASSENGER</span>
+</div>
+<div class="w-12 h-px bg-outline-variant"></div>
+<div class="flex items-center gap-2">
+<span class="w-8 h-8 rounded-full border border-outline text-outline flex items-center justify-center font-label-caps text-label-caps">3</span>
+<span class="font-label-caps text-label-caps text-outline">BOARDING PASS</span>
+</div>
+</div>
+</div>
+<div class="grid grid-cols-12 gap-gutter">
+<!-- Hero Title -->
+<div class="col-span-12 mb-8">
+<h1 class="font-display-lg text-display-lg text-on-background">Check-in</h1>
+<p class="font-body-base text-body-base text-secondary mt-2">Manage your journey with technical precision.</p>
+</div>
+<!-- Step 1: Find Flight Form -->
+<div class="col-span-12 lg:col-span-5">
+<div class="bg-surface-container-lowest border border-outline-variant p-10 shadow-[0px_10px_30px_rgba(0,0,0,0.04)] rounded-lg">
+<h2 class="font-headline-md text-headline-md mb-8">Locate your trip</h2>
+<form class="space-y-8">
+<div>
+<label class="block font-label-caps text-label-caps text-outline mb-2">BOOKING REFERENCE (PNR)</label>
+<input class="w-full border-b border-outline-variant bg-transparent py-3 font-flight-data text-flight-data focus:border-primary focus:ring-0 outline-none transition-colors placeholder:text-surface-dim" placeholder="e.g. VOO7X9" type="text"/>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-outline mb-2">LAST NAME</label>
+<input class="w-full border-b border-outline-variant bg-transparent py-3 font-body-base text-body-base focus:border-primary focus:ring-0 outline-none transition-colors placeholder:text-surface-dim" placeholder="As it appears on your passport" type="text"/>
+</div>
+<button class="w-full bg-primary text-on-primary py-5 font-manrope font-bold uppercase tracking-widest text-sm hover:brightness-110 active:scale-[0.98] transition-all" type="submit">
+                            Continue to passenger details
+                        </button>
+</form>
+</div>
+</div>
+<!-- Contextual Info / Bento Side -->
+<div class="col-span-12 lg:col-span-7 grid grid-cols-2 gap-gutter">
+<div class="col-span-2 md:col-span-1 bg-surface-container p-8 border border-outline-variant rounded-lg">
+<span class="material-symbols-outlined text-primary mb-4">info</span>
+<h3 class="font-headline-md text-headline-md text-base mb-2">Online Check-in Window</h3>
+<p class="font-body-sm text-body-sm text-secondary">Check-in opens 24 hours prior to departure and closes 60 minutes before scheduled takeoff for international flights.</p>
+</div>
+<div class="col-span-2 md:col-span-1 bg-surface-container-high p-8 border border-outline-variant rounded-lg flex flex-col justify-between">
+<div>
+<span class="material-symbols-outlined text-primary mb-4">luggage</span>
+<h3 class="font-headline-md text-headline-md text-base mb-2">Baggage Allowance</h3>
+<p class="font-body-sm text-body-sm text-secondary">Economy class: 1 carry-on (7kg) and 1 checked bag (23kg).</p>
+</div>
+<a class="font-label-caps text-label-caps text-primary mt-4 flex items-center gap-2" href="#">VIEW POLICY <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+<div class="col-span-2 relative h-64 overflow-hidden rounded-lg">
+<img class="w-full h-full object-cover" data-alt="A luxurious airport lounge with sleek mid-century modern furniture, floor-to-ceiling windows overlooking a sunset runway, and warm ambient lighting. The atmosphere is sophisticated and quiet, with golden accents on the tables reflecting the premium vOO airline aesthetic. Clean lines and high-end materials create a professional yet comfortable travel environment." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAP99KojMncGW6MR21wVAPC19VtGhsbxXv49jQED_J7K9pw8QGNqAPGxKH2OOdk0_oeXGbu5r6RfZI30f0H_b9zG66-wfkgZInHtdH0hRagPGpPG5T44xlGrUNPNhmCGviBseNYKKTNlV1mBFhFaR75OWsPDC9biJbqUeKVuFzJYJ1w9_0AFKmDYNl57Q4XcmU2RreEdRZW_Yi3leVfmrlaqCIRU4V3pcYwK4XV6E32TQ9WlUUWnJTFV1bDmXmHaP0WwZkCIqfy0Ko"/>
+<div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex flex-col justify-end p-8">
+<span class="text-white font-label-caps text-label-caps opacity-80">VOO PRIVILEGE</span>
+<h3 class="text-white font-headline-md text-headline-md">The Premium Lounge Experience</h3>
+</div>
+</div>
+</div>
+<!-- Preview: Step 2 Mockup (Subtle) -->
+<div class="col-span-12 mt-16 opacity-50 pointer-events-none">
+<div class="flex items-center gap-4 mb-6">
+<div class="h-px flex-1 bg-outline-variant"></div>
+<span class="font-label-caps text-label-caps text-outline">PREVIEW: STEP 2 PASSENGER DETAILS</span>
+<div class="h-px flex-1 bg-outline-variant"></div>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+<div class="bg-surface-container p-6 rounded border border-outline-variant">
+<div class="flex justify-between items-start mb-4">
+<div>
+<p class="font-label-caps text-label-caps text-secondary">FLIGHT</p>
+<p class="font-flight-data text-flight-data">VO 482</p>
+</div>
+<span class="material-symbols-outlined text-primary">flight_takeoff</span>
+</div>
+<div class="space-y-2">
+<p class="font-body-base text-body-base">London (LHR) → New York (JFK)</p>
+<p class="font-body-sm text-body-sm text-secondary">14 OCT 2024 • 10:45 AM</p>
+</div>
+</div>
+<div class="md:col-span-2 bg-surface-container p-6 rounded border border-outline-variant flex gap-8 items-center">
+<div class="w-32 h-32 bg-surface-container-highest flex items-center justify-center rounded border border-outline-variant">
+<span class="material-symbols-outlined text-4xl text-outline">airline_seat_recline_extra</span>
+</div>
+<div>
+<p class="font-label-caps text-label-caps text-secondary">SELECTED SEAT</p>
+<p class="font-display-lg text-display-lg text-2xl">12A (Business)</p>
+<p class="font-body-sm text-body-sm text-secondary mt-1">Window seat with extra legroom.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-50 dark:bg-slate-900 w-full border-t border-slate-200 dark:border-slate-800">
+<div class="flex flex-col md:flex-row justify-between items-center py-12 px-8 max-w-screen-2xl mx-auto gap-4">
+<div class="flex flex-col items-center md:items-start gap-2">
+<div class="text-xl font-bold text-slate-900 dark:text-white">vOO</div>
+<p class="font-manrope text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400">© 2024 vOO Airways. Technical Precision. Premium Comfort.</p>
+</div>
+<div class="flex gap-8">
+<a class="font-manrope text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-yellow-600 transition-colors" href="#">Privacy Policy</a>
+<a class="font-manrope text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-yellow-600 transition-colors" href="#">Terms of Service</a>
+<a class="font-manrope text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-yellow-600 transition-colors" href="#">Sustainability</a>
+<a class="font-manrope text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-yellow-600 transition-colors" href="#">Careers</a>
+</div>
+</div>
+</footer>
+<!-- Contextual FAB (Hidden on this transactional screen as per instructions) -->
+</body></html>

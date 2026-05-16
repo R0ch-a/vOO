@@ -1,5 +1,7 @@
 package com.voo.airline.entity;
 
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 import com.voo.airline.enums.PaymentMethod;
 import com.voo.airline.enums.PaymentStatus;
 import jakarta.persistence.*;
@@ -23,15 +25,17 @@ public class Payment extends AbstractEntity {
     @JoinColumn(name = "booking_id", nullable = false)
     private Booking booking;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "payment_method_enum")
+    // method
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(nullable = false)
     private PaymentMethod method;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal amount;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false, columnDefinition = "payment_status_enum")
+    // status
+    @JdbcTypeCode(SqlTypes.NAMED_ENUM)
+    @Column(nullable = false)
     private PaymentStatus status;
 
     @Column(name = "paid_at")
