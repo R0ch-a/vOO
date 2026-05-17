@@ -71,6 +71,9 @@ function buildBookingPayload() {
   const seat       = document.getElementById('voo-selected-seat').value;
   const flightClass = document.getElementById('voo-flight-class').value;
 
+  const cpfRaw = document.getElementById('voo-cpf')?.value || '';
+  const cpf    = cpfRaw.replace(/[^0-9]/g, '');
+
   return {
     flightNum:   'VO' + Math.floor(1000 + Math.random() * 9000),
     origin:      origin  || 'LHR',
@@ -88,6 +91,7 @@ function buildBookingPayload() {
     passengerData: {
       name:      name,
       email:     email,
+      cpf:       cpf || null,
       docType:   'PASSPORT',
       docNumber: docNumber,
     }

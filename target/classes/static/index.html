@@ -117,10 +117,10 @@
 <div class="flex justify-between items-center h-20 px-8 max-w-screen-2xl mx-auto">
 <div class="text-4xl font-black tracking-tighter text-yellow-700 dark:text-yellow-500">vOO</div>
 <nav class="hidden md:flex items-center space-x-8">
-<a class="font-manrope text-sm font-medium tracking-wide text-yellow-700 dark:text-yellow-500 border-b-2 border-yellow-700 dark:border-yellow-500 pb-1" href="#">Book</a>
-<a class="font-manrope text-sm font-medium tracking-wide text-slate-600 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-yellow-400" href="#">My Trips</a>
-<a class="font-manrope text-sm font-medium tracking-wide text-slate-600 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-yellow-400" href="#">Flight Status</a>
-<a class="font-manrope text-sm font-medium tracking-wide text-slate-600 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-yellow-400" href="#">Check-in</a>
+<a class="font-manrope text-sm font-medium tracking-wide text-yellow-700 dark:text-yellow-500 border-b-2 border-yellow-700 dark:border-yellow-500 pb-1" href="index.html">Book</a>
+<a class="font-manrope text-sm font-medium tracking-wide text-slate-600 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-yellow-400" href="my-trips.html">My Trips</a>
+<a class="font-manrope text-sm font-medium tracking-wide text-slate-600 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-yellow-400" href="flight-status.html">Flight Status</a>
+<a class="font-manrope text-sm font-medium tracking-wide text-slate-600 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-yellow-400" href="check-in.html">Check-in</a>
 </nav>
 <div class="flex items-center space-x-6">
 <span class="material-symbols-outlined text-slate-600 cursor-pointer">language</span>
@@ -244,7 +244,7 @@
 <h2 class="font-headline-md text-headline-md mt-2">Passenger Information</h2>
 </div>
 <div class="bg-surface-container-low rounded-xl p-10 border border-outline-variant">
-<form class="grid grid-cols-1 md:grid-cols-3 gap-8">
+<form class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 <div class="space-y-2">
 <label class="font-label-caps text-label-caps text-secondary block">Full Name</label>
 <input id="voo-passenger-name" class="w-full bg-transparent border-b border-outline focus:border-primary focus:ring-0 py-2 font-body-base placeholder:text-surface-dim transition-colors" placeholder="Johnathan Doe" type="text"/>
@@ -252,6 +252,12 @@
 <div class="space-y-2">
 <label class="font-label-caps text-label-caps text-secondary block">Email Address</label>
 <input id="voo-passenger-email" class="w-full bg-transparent border-b border-outline focus:border-primary focus:ring-0 py-2 font-body-base placeholder:text-surface-dim transition-colors" placeholder="john@horizon.com" type="email"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-caps text-label-caps text-secondary block">CPF</label>
+<input id="voo-cpf" type="text" maxlength="14" placeholder="000.000.000-00"
+  oninput="maskCPFInput(this)"
+  class="w-full bg-transparent border-b border-outline focus:border-primary focus:ring-0 py-2 font-body-base placeholder:text-surface-dim transition-colors tracking-wider"/>
 </div>
 <div class="space-y-2">
 <label class="font-label-caps text-label-caps text-secondary block">Passport Number</label>
@@ -555,6 +561,14 @@ var CITIES = {
 };
 
 // ── Flight type toggle ───────────────────────────────────────────────────────
+function maskCPFInput(el) {
+  var v = el.value.replace(/[^0-9]/g, '');
+  if (v.length > 3)  v = v.slice(0,3) + '.' + v.slice(3);
+  if (v.length > 7)  v = v.slice(0,7) + '.' + v.slice(7);
+  if (v.length > 11) v = v.slice(0,11) + '-' + v.slice(11);
+  el.value = v.slice(0, 14);
+}
+
 function setFlightType(type) {
   document.getElementById("voo-flight-type").value = type;
   var isRT = type === "ROUNDTRIP";
@@ -852,8 +866,10 @@ function selectFlight(idx, flight, origin, dest, depDate) {
 function goToStep2() {
   var name  = document.getElementById("voo-passenger-name").value.trim();
   var email = document.getElementById("voo-passenger-email").value.trim();
-  if (!name)  { showToast("Please enter your full name.", "error"); return; }
-  if (!email) { showToast("Please enter your email address.", "error"); return; }
+  var cpf   = document.getElementById("voo-cpf").value.replace(/\D/g, "");
+  if (!name)         { showToast("Please enter your full name.", "error"); return; }
+  if (!email)        { showToast("Please enter your email address.", "error"); return; }
+  if (cpf.length !== 11) { showToast("Please enter a valid CPF (11 digits).", "error"); return; }
   showSection("sec-step2");
   // Default to Executive class on first open if nothing selected
   if (!document.getElementById("voo-flight-class").value) {

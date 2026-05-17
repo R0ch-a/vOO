@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Space+Grotesk:wght@400;500;600;700&amp;family=Inter:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#dadada",
+                        "tertiary-fixed": "#e3e2e2",
+                        "surface-container-highest": "#e2e2e2",
+                        "tertiary": "#5c5c5c",
+                        "secondary": "#5f5e5e",
+                        "on-primary-fixed-variant": "#5d4200",
+                        "on-surface-variant": "#4f4535",
+                        "primary-fixed-dim": "#f7bd48",
+                        "tertiary-fixed-dim": "#c7c6c6",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-primary-fixed": "#271900",
+                        "background": "#f9f9f9",
+                        "on-background": "#1a1c1c",
+                        "surface-container-low": "#f3f3f3",
+                        "error": "#ba1a1a",
+                        "surface-bright": "#f9f9f9",
+                        "on-primary": "#ffffff",
+                        "inverse-surface": "#2f3131",
+                        "on-primary-container": "#fffbff",
+                        "on-tertiary-fixed-variant": "#464747",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#474746",
+                        "surface-tint": "#7b5800",
+                        "primary": "#785600",
+                        "on-tertiary-fixed": "#1b1c1c",
+                        "on-secondary": "#ffffff",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "primary-fixed": "#ffdea6",
+                        "on-tertiary": "#ffffff",
+                        "surface": "#f9f9f9",
+                        "primary-container": "#986d00",
+                        "surface-variant": "#e2e2e2",
+                        "outline": "#817563",
+                        "on-error": "#ffffff",
+                        "inverse-primary": "#f7bd48",
+                        "outline-variant": "#d3c4af",
+                        "inverse-on-surface": "#f1f1f1",
+                        "on-secondary-container": "#636262",
+                        "tertiary-container": "#747474",
+                        "on-tertiary-container": "#fefcfc",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-container-high": "#e8e8e8",
+                        "error-container": "#ffdad6",
+                        "secondary-container": "#e2dfde",
+                        "surface-container": "#eeeeee",
+                        "surface-container-lowest": "#ffffff",
+                        "on-surface": "#1a1c1c"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.125rem",
+                        "lg": "0.25rem",
+                        "xl": "0.5rem",
+                        "full": "0.75rem"
+                    },
+                    "spacing": {
+                        "margin-mobile": "16px",
+                        "margin-desktop": "64px",
+                        "base-unit": "8px",
+                        "container-max": "1280px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-md": ["Manrope"],
+                        "flight-data": ["Space Grotesk"],
+                        "display-lg": ["Manrope"],
+                        "label-caps": ["Space Grotesk"],
+                        "body-base": ["Inter"],
+                        "body-sm": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                        "flight-data": ["20px", {"lineHeight": "24px", "fontWeight": "500"}],
+                        "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                        "label-caps": ["12px", {"lineHeight": "16px", "letterSpacing": "0.1em", "fontWeight": "600"}],
+                        "body-base": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "body-sm": ["14px", {"lineHeight": "20px", "fontWeight": "400"}]
+                    }
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        .glass-panel {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-base antialiased">
+<!-- TopAppBar -->
+<header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-md fixed top-0 w-full z-50 border-b border-slate-200 dark:border-slate-800 shadow-[0px_10px_30px_rgba(0,0,0,0.04)]">
+<div class="flex justify-between items-center h-20 px-8 max-w-screen-2xl mx-auto">
+<div class="text-4xl font-black tracking-tighter text-yellow-700 dark:text-yellow-500">vOO</div>
+<nav class="hidden md:flex items-center space-x-8">
+<a class="font-manrope text-sm font-medium tracking-wide text-slate-600 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-yellow-400" href="index.html">Book</a>
+<a class="font-manrope text-sm font-medium tracking-wide text-yellow-700 dark:text-yellow-500 border-b-2 border-yellow-700 dark:border-yellow-500 pb-1" href="my-trips.html">My Trips</a>
+<a class="font-manrope text-sm font-medium tracking-wide text-slate-600 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-yellow-400" href="flight-status.html">Flight Status</a>
+<a class="font-manrope text-sm font-medium tracking-wide text-slate-600 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-yellow-400" href="check-in.html">Check-in</a>
+</nav>
+<div class="flex items-center space-x-6">
+<span class="material-symbols-outlined text-slate-600 cursor-pointer">language</span>
+<span class="material-symbols-outlined text-slate-600 cursor-pointer">support</span>
+<button class="bg-primary text-white px-6 py-2 rounded-lg font-manrope text-sm font-semibold active:scale-95 transition-all">Sign In</button>
+</div>
+</div>
+
+<main class="pt-32 pb-24 px-4 md:px-margin-desktop max-w-screen-2xl mx-auto">
+<!-- Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between mb-12 gap-6">
+  <div>
+    <h1 class="font-display-lg text-display-lg text-on-background mb-2">My Journeys</h1>
+    <p class="text-secondary font-body-base">Manage your premium travel experiences with vOO Airways.</p>
+  </div>
+</div>
+
+<!-- CPF Search -->
+<div class="bg-white border border-outline-variant rounded-xl p-8 mb-12 shadow-[0px_10px_30px_rgba(0,0,0,0.04)]">
+  <p class="font-label-caps text-label-caps text-outline uppercase mb-4">Find your bookings</p>
+  <div class="flex flex-col md:flex-row gap-4">
+    <div class="relative flex-grow">
+      <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-outline">person_search</span>
+      <input id="cpf-input" type="text" maxlength="14" placeholder="Enter your CPF (000.000.000-00)"
+        class="w-full pl-10 pr-4 py-3 bg-surface-container-low border border-outline-variant rounded-lg focus:border-primary focus:ring-0 transition-colors font-body-base"
+        oninput="maskCPF(this)" onkeydown="if(event.key==='Enter') searchTrips()"/>
+    </div>
+    <button onclick="searchTrips()"
+      class="bg-primary text-white px-8 py-3 rounded-lg font-manrope font-semibold text-sm hover:brightness-110 active:scale-95 transition-all flex items-center gap-2 whitespace-nowrap">
+      <span class="material-symbols-outlined text-base">search</span>
+      Search Trips
+    </button>
+  </div>
+  <div id="search-error" class="hidden mt-3 text-sm font-body-sm" style="color:#ba1a1a;"></div>
+</div>
+
+<!-- Loading state -->
+<div id="trips-loading" class="hidden text-center py-16">
+  <span class="material-symbols-outlined text-5xl text-outline-variant" style="animation:spin 1.2s linear infinite;">autorenew</span>
+  <p class="font-body-base text-secondary mt-4">Fetching your journeys...</p>
+</div>
+
+<!-- Empty state -->
+<div id="trips-empty" class="hidden text-center py-16">
+  <span class="material-symbols-outlined text-5xl text-outline-variant">flight_takeoff</span>
+  <p class="font-headline-md text-headline-md mt-4">No bookings found</p>
+  <p class="font-body-base text-secondary mt-2">No trips found for this CPF. <a href="index.html" class="text-primary underline">Book your first flight</a>.</p>
+</div>
+
+<!-- Trips container -->
+<div id="trips-container" class="hidden">
+
+  <!-- Upcoming section -->
+  <section class="mb-12" id="section-upcoming">
+    <div class="flex items-center gap-4 mb-6">
+      <h2 class="font-label-caps text-label-caps uppercase text-primary tracking-[0.2em]">Upcoming & Active</h2>
+      <div class="h-px flex-grow bg-outline-variant/30"></div>
+      <span id="count-upcoming" class="font-label-caps text-xs text-outline"></span>
+    </div>
+    <div id="list-upcoming" class="space-y-4"></div>
+  </section>
+
+  <!-- Past section -->
+  <section id="section-past">
+    <div class="flex items-center gap-4 mb-6">
+      <h2 class="font-headline-md text-headline-md text-on-background">Travel History</h2>
+      <div class="h-px flex-grow bg-outline-variant/30"></div>
+      <span id="count-past" class="font-label-caps text-xs text-outline"></span>
+    </div>
+    <div class="overflow-x-auto">
+      <table class="w-full border-collapse">
+        <thead>
+          <tr class="border-b border-outline-variant text-left">
+            <th class="pb-4 font-label-caps text-xs text-outline uppercase">Date</th>
+            <th class="pb-4 font-label-caps text-xs text-outline uppercase">Route</th>
+            <th class="pb-4 font-label-caps text-xs text-outline uppercase">Flight</th>
+            <th class="pb-4 font-label-caps text-xs text-outline uppercase">Class</th>
+            <th class="pb-4 font-label-caps text-xs text-outline uppercase">Locator</th>
+            <th class="pb-4 font-label-caps text-xs text-outline uppercase">Status</th>
+          </tr>
+        </thead>
+        <tbody id="list-past" class="divide-y divide-outline-variant/30"></tbody>
+      </table>
+    </div>
+  </section>
+
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-slate-50 dark:bg-slate-900 w-full border-t border-slate-200 dark:border-slate-800">
+<div class="flex flex-col md:flex-row justify-between items-center py-12 px-8 max-w-screen-2xl mx-auto gap-4">
+<div class="flex flex-col items-center md:items-start gap-2">
+<div class="text-xl font-bold text-slate-900 dark:text-white">vOO</div>
+<p class="font-manrope text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400">© 2024 vOO Airways. Technical Precision. Premium Comfort.</p>
+</div>
+<div class="flex gap-8">
+<a class="font-manrope text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-yellow-600 transition-colors" href="#">Privacy Policy</a>
+<a class="font-manrope text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-yellow-600 transition-colors" href="#">Terms of Service</a>
+<a class="font-manrope text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-yellow-600 transition-colors" href="#">Sustainability</a>
+<a class="font-manrope text-xs uppercase tracking-widest text-slate-500 dark:text-slate-400 hover:text-yellow-600 transition-colors" href="#">Careers</a>
+</div>
+</div>
+</footer>
+
+
+<style>
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+.pip-overlay { transition: opacity 0.2s ease; }
+.pip-card    { transition: transform 0.25s ease, opacity 0.25s ease; }
+.perforated-line {
+  background-image: linear-gradient(to bottom, #d3c4af 50%, rgba(255,255,255,0) 0%);
+  background-position: right; background-size: 1px 15px; background-repeat: repeat-y;
+}
+</style>
+
+<!-- ── BOARDING PASS PiP ──────────────────────────────────────────────────── -->
+<div id="pip-pass" class="pip-overlay fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-center p-6 hidden">
+  <div class="pip-card w-full max-w-5xl flex flex-col items-center gap-3">
+    <button onclick="closePip('pip-pass')" class="self-end bg-white/20 hover:bg-white/40 backdrop-blur-sm p-2 rounded-full text-white transition-all">
+      <span class="material-symbols-outlined">close</span>
+    </button>
+    <!-- passes wrapper: one or two side by side -->
+    <div id="pass-wrapper" class="w-full flex flex-col md:flex-row gap-6 justify-center"></div>
+  </div>
+</div>
+
+<!-- ── MANAGE TRIP PiP ───────────────────────────────────────────────────── -->
+<div id="pip-manage" class="pip-overlay fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-center p-6 hidden">
+  <div class="pip-card w-full max-w-2xl bg-surface-container-lowest border border-outline-variant shadow-[0px_40px_100px_rgba(0,0,0,0.15)] rounded-xl overflow-hidden flex flex-col">
+    <!-- Header -->
+    <div class="bg-primary px-8 py-6 flex justify-between items-center text-on-primary">
+      <div class="flex items-center gap-4">
+        <span class="material-symbols-outlined text-3xl">settings_applications</span>
+        <div>
+          <h2 class="font-headline-md text-headline-md leading-none">Manage Trip</h2>
+          <p id="manage-route" class="font-label-caps text-[10px] opacity-80 mt-1 uppercase tracking-widest"></p>
+        </div>
+      </div>
+      <button onclick="closePip('pip-manage')" class="material-symbols-outlined hover:bg-white/10 p-2 rounded-full transition-colors">close</button>
+    </div>
+    <!-- Bento actions -->
+    <div class="p-8 grid grid-cols-1 md:grid-cols-2 gap-4 bg-surface">
+      <button class="group p-6 bg-white border border-outline-variant rounded-xl text-left hover:border-primary hover:shadow-lg transition-all flex flex-col justify-between">
+        <div class="flex justify-between items-start">
+          <div class="p-3 bg-surface-variant group-hover:bg-primary-fixed-dim transition-colors rounded-lg">
+            <span class="material-symbols-outlined text-primary">calendar_month</span>
+          </div>
+          <span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">arrow_forward</span>
+        </div>
+        <div class="mt-4">
+          <h3 class="font-headline-md text-lg text-on-surface mb-1">Change Flight</h3>
+          <p class="font-body-sm text-body-sm text-secondary">Modify travel dates or times for this booking.</p>
+        </div>
+      </button>
+      <button class="group p-6 bg-white border border-outline-variant rounded-xl text-left hover:border-primary hover:shadow-lg transition-all flex flex-col justify-between">
+        <div class="flex justify-between items-start">
+          <div class="p-3 bg-surface-variant group-hover:bg-primary-fixed-dim transition-colors rounded-lg">
+            <span class="material-symbols-outlined text-primary">upgrade</span>
+          </div>
+          <span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">arrow_forward</span>
+        </div>
+        <div class="mt-4">
+          <h3 class="font-headline-md text-lg text-on-surface mb-1">Upgrade Seat</h3>
+          <p class="font-body-sm text-body-sm text-secondary">Access vOO First or Business Class cabins.</p>
+        </div>
+      </button>
+      <button class="group p-6 bg-white border border-outline-variant rounded-xl text-left hover:border-primary hover:shadow-lg transition-all flex flex-col justify-between">
+        <div class="flex justify-between items-start">
+          <div class="p-3 bg-surface-variant group-hover:bg-primary-fixed-dim transition-colors rounded-lg">
+            <span class="material-symbols-outlined text-primary">luggage</span>
+          </div>
+          <span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors">arrow_forward</span>
+        </div>
+        <div class="mt-4">
+          <h3 class="font-headline-md text-lg text-on-surface mb-1">Manage Baggage</h3>
+          <p class="font-body-sm text-body-sm text-secondary">Add or modify checked bag allowances.</p>
+        </div>
+      </button>
+      <!-- Cancel — calls backend -->
+      <button id="btn-cancel-trip" onclick="confirmCancel()" class="group p-6 bg-white border border-outline-variant rounded-xl text-left hover:border-error hover:shadow-lg transition-all flex flex-col justify-between">
+        <div class="flex justify-between items-start">
+          <div class="p-3 bg-error-container group-hover:bg-error transition-colors rounded-lg text-error group-hover:text-on-error">
+            <span class="material-symbols-outlined">cancel</span>
+          </div>
+          <span class="material-symbols-outlined text-outline-variant group-hover:text-error transition-colors">arrow_forward</span>
+        </div>
+        <div class="mt-4">
+          <h3 class="font-headline-md text-lg text-on-surface mb-1">Cancel Trip</h3>
+          <p class="font-body-sm text-body-sm text-secondary">Review refund options and cancel booking.</p>
+        </div>
+      </button>
+    </div>
+    <!-- Footer bar -->
+    <div class="px-8 py-4 bg-surface-container-high border-t border-outline-variant flex justify-between items-center">
+      <div class="flex items-center gap-6">
+        <div class="flex flex-col">
+          <span class="font-label-caps text-[9px] text-secondary uppercase">Locator</span>
+          <span id="manage-locator-display" class="font-flight-data text-sm tracking-widest"></span>
+        </div>
+        <div class="w-px h-6 bg-outline-variant"></div>
+        <div class="flex flex-col">
+          <span class="font-label-caps text-[9px] text-secondary uppercase">Status</span>
+          <span id="manage-status-display" class="font-flight-data text-sm text-primary"></span>
+        </div>
+      </div>
+      <div class="text-right">
+        <span class="font-label-caps text-[9px] text-secondary uppercase block">Class</span>
+        <span id="manage-class-display" class="font-manrope text-xs font-bold text-on-surface"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── CANCEL CONFIRM PiP ────────────────────────────────────────────────── -->
+<div id="pip-confirm-cancel" class="pip-overlay fixed inset-0 z-[60] bg-black/40 backdrop-blur-sm flex items-center justify-center p-6 hidden">
+  <div class="pip-card w-full max-w-md bg-surface-container-lowest rounded-xl shadow-[0px_40px_100px_rgba(0,0,0,0.2)] border border-outline-variant overflow-hidden">
+    <div class="p-8">
+      <div class="w-14 h-14 rounded-full bg-error-container flex items-center justify-center mb-6">
+        <span class="material-symbols-outlined text-error text-3xl">warning</span>
+      </div>
+      <h2 class="font-headline-md text-headline-md mb-2">Cancel this booking?</h2>
+      <p class="font-body-sm text-body-sm text-secondary mb-1">Locator: <strong id="cancel-locator-text" class="font-flight-data tracking-widest"></strong></p>
+      <p class="font-body-sm text-body-sm text-secondary">This action cannot be undone. Any applicable refund will be processed within 5–7 business days.</p>
+    </div>
+    <div class="flex border-t border-outline-variant">
+      <button onclick="closePip('pip-confirm-cancel')" class="flex-1 py-4 font-manrope text-sm font-semibold text-secondary hover:bg-surface-container transition-colors border-r border-outline-variant">
+        Keep Booking
+      </button>
+      <button onclick="executeCancelTrip()" id="btn-execute-cancel" class="flex-1 py-4 font-manrope text-sm font-semibold text-error hover:bg-error-container transition-colors">
+        Yes, Cancel Trip
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = 'http://localhost:8080/api';
+
+const CITY = {
+  JFK:'New York', BOS:'Boston', YEG:'Edmonton', YYZ:'Toronto',
+  LHR:'London',   AUH:'Abu Dhabi', DXB:'Dubai',  SYD:'Sydney',
+  WLG:'Wellington', GIG:'Rio de Janeiro', REC:'Recife', KEF:'Reykjavík'
+};
+
+const CLASS_LABEL = {
+  EXECUTIVE:'First Class', PREMIUM_ECONOMY:'Business Plus', ECONOMY:'Economy'
+};
+
+const STATUS_STYLE = {
+  CONFIRMED: 'background:#e8f5e9;color:#2e7d32;',
+  PENDING:   'background:#fff8e1;color:#f57f17;',
+  CANCELLED: 'background:#ffebee;color:#c62828;',
+  COMPLETED: 'background:#eeeeee;color:#424242;'
+};
+
+var currentManageLocator = null;
+
+/* ── PiP helpers ─────────────────────────────────────────── */
+function openPip(id) {
+  document.getElementById(id).classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+function closePip(id) {
+  document.getElementById(id).classList.add('hidden');
+  if (!['pip-pass','pip-manage','pip-confirm-cancel'].some(function(x) {
+    return x !== id && !document.getElementById(x).classList.contains('hidden');
+  })) { document.body.style.overflow = ''; }
+}
+
+/* ── CPF mask ────────────────────────────────────────────── */
+function maskCPF(el) {
+  var v = el.value.replace(/[^0-9]/g,'');
+  if (v.length > 3)  v = v.slice(0,3)+'.'+v.slice(3);
+  if (v.length > 7)  v = v.slice(0,7)+'.'+v.slice(7);
+  if (v.length > 11) v = v.slice(0,11)+'-'+v.slice(11);
+  el.value = v.slice(0,14);
+}
+
+function showError(msg) {
+  var el = document.getElementById('search-error');
+  el.textContent = msg; el.classList.remove('hidden');
+}
+function clearError() { document.getElementById('search-error').classList.add('hidden'); }
+
+/* ── Search ──────────────────────────────────────────────── */
+var BOOKING_STORE = {};
+
+/* Event delegation — handles all card buttons safely */
+document.addEventListener('click', function(e) {
+  var btn = e.target.closest('[data-action]');
+  if (!btn) return;
+  var locator = btn.getAttribute('data-locator');
+  var action  = btn.getAttribute('data-action');
+  if (!locator || !action) return;
+  if (action === 'pass')   openBoardingPass(locator);
+  if (action === 'manage') openManage(locator);
+});
+
+async function searchTrips() {
+  clearError();
+  var raw = document.getElementById('cpf-input').value.trim();
+  var cpf = raw.replace(/[^0-9]/g,'');
+  if (cpf.length !== 11) { showError('Please enter a valid 11-digit CPF.'); return; }
+
+  ['trips-loading','trips-container','trips-empty'].forEach(function(id) {
+    document.getElementById(id).classList.add('hidden');
+  });
+  document.getElementById('trips-loading').classList.remove('hidden');
+
+  try {
+    var res  = await fetch(API+'/passengers/cpf/'+cpf+'/bookings');
+    var data = await res.json();
+    document.getElementById('trips-loading').classList.add('hidden');
+
+    if (!data.success || !data.data || data.data.length === 0) {
+      document.getElementById('trips-empty').classList.remove('hidden'); return;
+    }
+
+    var bookings = data.data;
+    var upcoming = bookings.filter(function(b) { return b.status==='CONFIRMED'||b.status==='PENDING'; });
+    var past     = bookings.filter(function(b) { return b.status==='COMPLETED'||b.status==='CANCELLED'; });
+
+    var upEl = document.getElementById('list-upcoming');
+    upEl.innerHTML = '';
+    document.getElementById('count-upcoming').textContent = upcoming.length+' trip'+(upcoming.length!==1?'s':'');
+    upcoming.forEach(function(b) {
+      BOOKING_STORE[b.locator] = b;
+      upEl.appendChild(makeCard(b));
+    });
+    document.getElementById('section-upcoming').style.display = upcoming.length ? '' : 'none';
+
+    var pastEl = document.getElementById('list-past');
+    pastEl.innerHTML = '';
+    document.getElementById('count-past').textContent = past.length+' trip'+(past.length!==1?'s':'');
+    past.forEach(function(b) {
+      var tr = document.createElement('tr');
+      tr.className = 'hover:bg-surface-container-low transition-colors';
+      var st = STATUS_STYLE[b.status] || '';
+      tr.innerHTML = [
+        '<td class="py-5 font-body-base">'+formatDate(b.depDate)+'</td>',
+        '<td class="py-5 font-body-base">'+b.origin+' <span style="color:#d3c4af">→</span> '+b.destination+'</td>',
+        '<td class="py-5 font-flight-data text-sm">'+b.flightNum+'</td>',
+        '<td class="py-5 font-body-sm">'+(CLASS_LABEL[b.flightClass]||b.flightClass)+'</td>',
+        '<td class="py-5 font-flight-data text-sm tracking-widest">'+b.locator+'</td>',
+        '<td class="py-5"><span style="'+st+'padding:2px 10px;font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;">'+b.status+'</span></td>'
+      ].join('');
+      pastEl.appendChild(tr);
+    });
+    document.getElementById('section-past').style.display = past.length ? '' : 'none';
+    document.getElementById('trips-container').classList.remove('hidden');
+
+  } catch(e) {
+    document.getElementById('trips-loading').classList.add('hidden');
+    showError('Could not connect to server. Is the backend running?');
+  }
+}
+
+/* ── Trip card ───────────────────────────────────────────── */
+function makeCard(b) {
+  var div = document.createElement('div');
+  div.className = 'bg-white border border-outline-variant rounded-xl overflow-hidden shadow-[0px_10px_30px_rgba(0,0,0,0.04)]';
+  var originCity = CITY[b.origin]  || b.origin;
+  var destCity   = CITY[b.destination] || b.destination;
+  var cls        = CLASS_LABEL[b.flightClass] || b.flightClass;
+  var st         = STATUS_STYLE[b.status] || '';
+  var isRT       = b.flightType === 'ROUNDTRIP';
+
+  div.innerHTML = [
+    /* card header */
+    '<div class="bg-primary/5 px-8 py-4 border-b border-outline-variant flex justify-between items-center">',
+    '  <div class="flex items-center gap-4">',
+    '    <span class="font-flight-data text-flight-data text-primary">'+b.flightNum+'</span>',
+    '    <span class="w-1.5 h-1.5 rounded-full bg-outline-variant"></span>',
+    '    <span class="font-label-caps text-label-caps text-secondary">'+b.status+' · '+b.locator+'</span>',
+    '    '+(isRT ? '<span class="ml-2 px-2 py-0.5 rounded-full bg-primary/10 text-primary font-label-caps text-[10px] uppercase">Round-Trip</span>' : ''),
+    '  </div>',
+    '  <span style="'+st+'padding:2px 10px;font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;">'+b.status+'</span>',
+    '</div>',
+    /* route */
+    '<div class="p-8 flex flex-col md:flex-row items-center justify-between gap-8">',
+    '  <div class="flex-1 flex justify-between items-center w-full">',
+    '    <div class="text-left">',
+    '      <p class="font-label-caps text-xs text-outline uppercase mb-1">'+originCity+'</p>',
+    '      <p class="font-flight-data text-4xl">'+b.origin+'</p>',
+    '      <p class="font-body-sm text-secondary mt-1">'+formatDate(b.depDate)+'</p>',
+    '    </div>',
+    '    <div class="flex flex-col items-center gap-2 px-6">',
+    '      <span class="material-symbols-outlined text-primary text-2xl">'+(isRT?'sync_alt':'flight_takeoff')+'</span>',
+    '      <p class="font-label-caps text-[10px] text-outline uppercase">'+(isRT?'Round-trip':'One-way')+'</p>',
+    '    </div>',
+    '    <div class="text-right">',
+    '      <p class="font-label-caps text-xs text-outline uppercase mb-1">'+destCity+'</p>',
+    '      <p class="font-flight-data text-4xl">'+b.destination+'</p>',
+    '      '+(isRT && b.retDate ? '<p class="font-body-sm text-secondary mt-1">Return: '+formatDate(b.retDate)+'</p>' : ''),
+    '    </div>',
+    '  </div>',
+    '  <div class="w-full md:w-px h-px md:h-20 bg-outline-variant flex-shrink-0"></div>',
+    /* details */
+    '  <div class="grid grid-cols-2 gap-x-8 gap-y-2 min-w-[180px]">',
+    '    <div><p class="font-label-caps text-[9px] text-outline uppercase">Seat</p><p class="font-body-sm font-semibold text-primary">'+(b.seat||'—')+'</p></div>',
+    '    <div><p class="font-label-caps text-[9px] text-outline uppercase">Gate</p><p class="font-body-sm font-semibold">'+(b.gate||'—')+'</p></div>',
+    '    <div><p class="font-label-caps text-[9px] text-outline uppercase">Class</p><p class="font-body-sm font-semibold">'+cls+'</p></div>',
+    '    <div><p class="font-label-caps text-[9px] text-outline uppercase">Boarding</p><p class="font-body-sm font-semibold">'+(b.boarding||'—')+'</p></div>',
+    '  </div>',
+    '  <div class="w-full md:w-px h-px md:h-20 bg-outline-variant flex-shrink-0"></div>',
+    /* buttons */
+    '  <div class="flex flex-col gap-3 min-w-[180px]">',
+    '    <button data-action="pass" data-locator="'+b.locator+'" class="w-full py-3 bg-primary text-on-primary font-manrope text-sm font-bold rounded-lg uppercase tracking-wider hover:brightness-110 active:scale-95 transition-all flex items-center justify-center gap-2">',
+    '      <span class="material-symbols-outlined text-base">qr_code_2</span> Boarding Pass',
+    '    </button>',
+    '    <button data-action="manage" data-locator="'+b.locator+'" class="w-full py-3 border border-outline text-on-surface font-manrope text-sm font-bold rounded-lg uppercase tracking-wider hover:bg-surface-container active:scale-95 transition-all flex items-center justify-center gap-2">',
+    '      <span class="material-symbols-outlined text-base">settings</span> Manage Trip',
+    '    </button>',
+    '  </div>',
+    '</div>'
+  ].join('');
+  return div;
+}
+
+/* ── Boarding Pass PiP ───────────────────────────────────── */
+function openBoardingPass(locator) {
+  var b = BOOKING_STORE[locator];
+  if (!b) return;
+  var wrapper = document.getElementById('pass-wrapper');
+  wrapper.innerHTML = '';
+  wrapper.appendChild(buildPass(b, false));
+  if (b.flightType === 'ROUNDTRIP' && b.retDate) {
+    wrapper.appendChild(buildPass(b, true));
+  }
+  openPip('pip-pass');
+}
+
+function buildPass(b, isReturn) {
+  var origin = isReturn ? b.destination : b.origin;
+  var dest   = isReturn ? b.origin      : b.destination;
+  var date   = isReturn ? formatDate(b.retDate) : formatDate(b.depDate);
+  var cls    = CLASS_LABEL[b.flightClass] || b.flightClass;
+  var originCity = CITY[origin] || origin;
+  var destCity   = CITY[dest]   || dest;
+
+  var div = document.createElement('div');
+  div.className = 'bg-surface-container-lowest border border-outline-variant shadow-[0px_40px_100px_rgba(0,0,0,0.15)] flex flex-col md:flex-row overflow-hidden flex-1 min-w-0';
+
+  div.innerHTML = [
+    /* main section */
+    '<div class="flex-grow p-8 relative">',
+    '  <div class="flex justify-between items-start mb-8">',
+    '    <div>',
+    '      <span class="font-display-lg text-3xl font-black tracking-tighter text-primary">vOO</span>',
+    '      <span class="font-label-caps text-[10px] text-secondary tracking-widest block">'+(isReturn?'RETURN ':'')+'BOARDING PASS</span>',
+    '    </div>',
+    '    <div class="text-right">',
+    '      <span class="font-label-caps text-label-caps text-secondary block">FLIGHT</span>',
+    '      <span class="font-flight-data text-xl text-on-surface">'+b.flightNum+'</span>',
+    '    </div>',
+    '  </div>',
+    '  <div class="flex justify-between items-center mb-8">',
+    '    <div>',
+    '      <span class="font-display-lg text-5xl font-extrabold text-on-surface">'+origin+'</span>',
+    '      <span class="font-body-sm text-secondary block mt-1">'+originCity+'</span>',
+    '    </div>',
+    '    <span class="material-symbols-outlined text-3xl text-outline-variant">arrow_forward</span>',
+    '    <div class="text-right">',
+    '      <span class="font-display-lg text-5xl font-extrabold text-on-surface">'+dest+'</span>',
+    '      <span class="font-body-sm text-secondary block mt-1">'+destCity+'</span>',
+    '    </div>',
+    '  </div>',
+    '  <div class="grid grid-cols-2 md:grid-cols-4 gap-6 border-t border-surface-variant pt-6">',
+    '    <div><span class="font-label-caps text-[10px] text-secondary block">PASSENGER</span><span class="font-body-base font-semibold">'+(b.passenger&&b.passenger.name?b.passenger.name.toUpperCase():'—')+'</span></div>',
+    '    <div><span class="font-label-caps text-[10px] text-secondary block">SEAT</span><span class="font-flight-data text-xl text-primary font-bold">'+(b.seat||'—')+'</span></div>',
+    '    <div><span class="font-label-caps text-[10px] text-secondary block">CLASS</span><span class="font-body-base font-semibold">'+cls+'</span></div>',
+    '    <div><span class="font-label-caps text-[10px] text-secondary block">GATE</span><span class="font-flight-data text-xl font-bold">'+(b.gate||'—')+'</span></div>',
+    '    <div><span class="font-label-caps text-[10px] text-secondary block">DATE</span><span class="font-body-base font-semibold">'+date+'</span></div>',
+    '    <div><span class="font-label-caps text-[10px] text-secondary block">BOARDING</span><span class="font-flight-data font-bold">'+(b.boarding||'—')+'</span></div>',
+    '  </div>',
+    '  <div class="absolute bottom-3 left-8 flex gap-4">',
+    '    <span class="font-flight-data text-[9px] text-outline-variant">'+b.locator+'</span>',
+    '  </div>',
+    '</div>',
+    /* stub */
+    '<div class="md:w-52 bg-surface-container-low p-8 perforated-line border-l border-outline-variant/20 flex flex-col items-center justify-center text-center gap-4">',
+    '  <span class="font-label-caps text-[10px] text-secondary uppercase">Scan for Boarding</span>',
+    '  <div class="w-32 h-32 bg-white p-2 border border-outline-variant/30">',
+    '    <div class="w-full h-full bg-[repeating-conic-gradient(#1a1c1c_0%_25%,#fff_0%_50%)] bg-[length:8px_8px] opacity-80"></div>',
+    '  </div>',
+    '  <div>',
+    '    <span class="font-label-caps text-[10px] text-secondary block">BOOKING REF</span>',
+    '    <span class="font-flight-data text-base font-bold tracking-widest">'+b.locator+'</span>',
+    '  </div>',
+    '  <button onclick="window.print()" class="flex items-center gap-1 text-primary hover:underline">',
+    '    <span class="material-symbols-outlined text-sm">print</span>',
+    '    <span class="font-label-caps text-[10px]">PRINT PASS</span>',
+    '  </button>',
+    '</div>'
+  ].join('');
+  return div;
+}
+
+/* ── Manage PiP ──────────────────────────────────────────── */
+function openManage(locator) {
+  var b = BOOKING_STORE[locator];
+  if (!b) return;
+  currentManageLocator = b.locator;
+  var cls = CLASS_LABEL[b.flightClass] || b.flightClass;
+  document.getElementById('manage-route').textContent =
+    (CITY[b.origin]||b.origin)+' ('+b.origin+') → '+(CITY[b.destination]||b.destination)+' ('+b.destination+') · '+b.flightNum;
+  document.getElementById('manage-locator-display').textContent = b.locator;
+  document.getElementById('manage-status-display').textContent  = b.status;
+  document.getElementById('manage-class-display').textContent   = cls;
+  openPip('pip-manage');
+}
+
+/* ── Cancel flow ─────────────────────────────────────────── */
+function confirmCancel() {
+  if (!currentManageLocator) return;
+  document.getElementById('cancel-locator-text').textContent = currentManageLocator;
+  openPip('pip-confirm-cancel');
+}
+
+async function executeCancelTrip() {
+  if (!currentManageLocator) return;
+  var btn = document.getElementById('btn-execute-cancel');
+  btn.disabled = true;
+  btn.textContent = 'Cancelling...';
+
+  try {
+    var res  = await fetch(API+'/bookings/'+currentManageLocator+'/cancel', { method:'PATCH' });
+    var data = await res.json();
+
+    if (data.success) {
+      closePip('pip-confirm-cancel');
+      closePip('pip-manage');
+      showToast('Booking '+currentManageLocator+' cancelled successfully.', 'success');
+      // Refresh list
+      setTimeout(function() { searchTrips(); }, 800);
+    } else {
+      showToast(data.error || 'Could not cancel booking.', 'error');
+    }
+  } catch(e) {
+    showToast('Connection error. Try again.', 'error');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Yes, Cancel Trip';
+  }
+}
+
+/* ── Utilities ───────────────────────────────────────────── */
+function formatDate(dateStr) {
+  if (!dateStr) return '—';
+  var d = new Date(dateStr+'T12:00:00');
+  return d.toLocaleDateString('en-GB',{day:'2-digit',month:'short',year:'numeric'});
+}
+
+function showToast(message, type) {
+  var old = document.getElementById('voo-toast-trips');
+  if (old) old.remove();
+  var bg = type === 'success' ? '#785600' : '#ba1a1a';
+  var t  = document.createElement('div');
+  t.id   = 'voo-toast-trips';
+  t.style.cssText = 'position:fixed;bottom:2rem;right:2rem;z-index:9999;background:'+bg+';color:#fff;padding:1rem 1.5rem;border-radius:0.5rem;font-family:Manrope,sans-serif;font-size:0.875rem;font-weight:600;box-shadow:0 10px 30px rgba(0,0,0,0.15);';
+  t.textContent = message;
+  document.body.appendChild(t);
+  setTimeout(function(){t.remove();},4000);
+}
+
+/* Close PiPs on overlay click */
+['pip-pass','pip-manage','pip-confirm-cancel'].forEach(function(id) {
+  document.getElementById(id).addEventListener('click', function(e) {
+    if (e.target === this) closePip(id);
+  });
+});
+</script>
+
+</body></html>
