@@ -119,158 +119,25 @@
 <nav class="hidden md:flex items-center space-x-8">
 <a class="font-manrope text-sm font-medium tracking-wide text-yellow-700 dark:text-yellow-500 border-b-2 border-yellow-700 dark:border-yellow-500 pb-1" href="index.html">Book</a>
 <a class="font-manrope text-sm font-medium tracking-wide text-slate-600 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-yellow-400" href="my-trips.html">My Trips</a>
+<a class="font-manrope text-sm font-medium tracking-wide text-slate-600 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-yellow-400" href="flight-status.html">Flight Status</a>
 <a class="font-manrope text-sm font-medium tracking-wide text-slate-600 dark:text-slate-400 hover:text-yellow-600 dark:hover:text-yellow-400" href="check-in.html">Check-in</a>
 </nav>
 <div class="flex items-center space-x-6">
-<button onclick="openFlightStatus()" title="Flight Status" class="material-symbols-outlined text-slate-600 cursor-pointer hover:text-yellow-600 transition-colors bg-transparent border-none p-0 leading-none">language</button>
-<button onclick="openSignIn()" class="bg-primary text-white px-6 py-2 rounded-lg font-manrope text-sm font-semibold active:scale-95 transition-all">Sign In</button>
+<span class="material-symbols-outlined text-slate-600 cursor-pointer">language</span>
+<span class="material-symbols-outlined text-slate-600 cursor-pointer">support</span>
+<button class="bg-primary text-white px-6 py-2 rounded-lg font-manrope text-sm font-semibold active:scale-95 transition-all">Sign In</button>
 </div>
 </div>
 </header>
-<!-- ── Flight Status PiP ─────────────────────────────────────────────────── -->
-<div id="pip-flight-status" class="fixed inset-0 z-[60] bg-black/30 backdrop-blur-sm flex items-start justify-end p-6 hidden" onclick="if(event.target===this)closeFlightStatus()">
-  <div class="bg-surface-container-lowest border border-outline-variant shadow-[0px_40px_100px_rgba(0,0,0,0.15)] rounded-xl w-full max-w-2xl flex flex-col overflow-hidden" style="max-height:85vh;margin-top:5rem;" onclick="event.stopPropagation()">
-    <div class="flex justify-between items-center px-8 py-5 border-b border-outline-variant bg-white sticky top-0 z-10">
-      <div class="flex items-center gap-3">
-        <span class="material-symbols-outlined text-primary">flight_takeoff</span>
-        <h2 class="font-headline-md text-headline-md">Flight Status</h2>
-        <span class="bg-surface-container-high px-3 py-1 font-label-caps text-label-caps text-secondary ml-2">TODAY, OCT 24</span>
-      </div>
-      <button onclick="closeFlightStatus()" class="material-symbols-outlined text-slate-500 hover:text-slate-800 transition-colors bg-transparent border-none cursor-pointer text-base">close</button>
-    </div>
-    <div class="overflow-y-auto px-8 py-6 flex-1">
-<!-- Results Section -->
-<div class="space-y-4">
-<!-- Flight Card 1: On Time -->
-<div class="bg-white border border-outline-variant hover:border-primary transition-colors p-8 flex flex-col md:flex-row items-center gap-12 group">
-<div class="flex flex-col gap-1 min-w-[120px]">
-<span class="font-flight-data text-flight-data text-primary">vOO 442</span>
-<span class="font-label-caps text-label-caps text-secondary">AIRBUS A350-900</span>
-</div>
-<div class="flex-1 flex items-center gap-8 w-full">
-<div class="text-center md:text-left">
-<div class="font-display-lg text-3xl font-bold text-on-surface">LHR</div>
-<div class="font-body-sm text-body-sm text-secondary">London</div>
-<div class="font-flight-data text-base mt-2">14:20</div>
-</div>
-<div class="flex-1 flex flex-col items-center gap-2">
-<div class="w-full h-[1px] flight-path-line relative">
-<span class="material-symbols-outlined absolute -top-3 left-1/2 -translate-x-1/2 text-primary group-hover:scale-110 transition-transform">flight_takeoff</span>
-</div>
-<span class="font-label-caps text-[10px] text-outline uppercase tracking-tighter">Non-stop · 7h 45m</span>
-</div>
-<div class="text-center md:text-right">
-<div class="font-display-lg text-3xl font-bold text-on-surface">JFK</div>
-<div class="font-body-sm text-body-sm text-secondary">New York</div>
-<div class="font-flight-data text-base mt-2">17:05</div>
-</div>
-</div>
-<div class="flex flex-col md:items-end gap-4 min-w-[160px] w-full md:w-auto">
-<div class="inline-flex items-center gap-2 bg-surface-container px-3 py-1.5 rounded-full">
-<span class="w-2 h-2 rounded-full bg-primary"></span>
-<span class="font-label-caps text-label-caps text-primary">ON TIME</span>
-</div>
-<button class="border border-outline-variant text-on-surface-variant font-manrope font-bold text-xs uppercase py-3 px-6 hover:bg-surface-container transition-colors w-full">Track Flight</button>
-</div>
-</div>
-<!-- Flight Card 2: Delayed -->
-<div class="bg-white border border-outline-variant hover:border-primary transition-colors p-8 flex flex-col md:flex-row items-center gap-12 group">
-<div class="flex flex-col gap-1 min-w-[120px]">
-<span class="font-flight-data text-flight-data text-primary">vOO 108</span>
-<span class="font-label-caps text-label-caps text-secondary">BOEING 787-10</span>
-</div>
-<div class="flex-1 flex items-center gap-8 w-full">
-<div class="text-center md:text-left">
-<div class="font-display-lg text-3xl font-bold text-on-surface">DXB</div>
-<div class="font-body-sm text-body-sm text-secondary">Dubai</div>
-<div class="font-flight-data text-base mt-2">08:15</div>
-</div>
-<div class="flex-1 flex flex-col items-center gap-2">
-<div class="w-full h-[1px] flight-path-line relative">
-<span class="material-symbols-outlined absolute -top-3 left-1/2 -translate-x-1/2 text-primary">flight_takeoff</span>
-</div>
-<span class="font-label-caps text-[10px] text-outline uppercase tracking-tighter">Non-stop · 6h 20m</span>
-</div>
-<div class="text-center md:text-right">
-<div class="font-display-lg text-3xl font-bold text-on-surface">CDG</div>
-<div class="font-body-sm text-body-sm text-secondary">Paris</div>
-<div class="font-flight-data text-base mt-2">13:35</div>
-</div>
-</div>
-<div class="flex flex-col md:items-end gap-4 min-w-[160px] w-full md:w-auto">
-<div class="inline-flex items-center gap-2 bg-error-container px-3 py-1.5 rounded-full">
-<span class="w-2 h-2 rounded-full bg-error"></span>
-<span class="font-label-caps text-label-caps text-error">DELAYED (25m)</span>
-</div>
-<button class="border border-outline-variant text-on-surface-variant font-manrope font-bold text-xs uppercase py-3 px-6 hover:bg-surface-container transition-colors w-full">Track Flight</button>
-</div>
-</div>
-<!-- Flight Card 3: Departed -->
-<div class="bg-white border border-outline-variant hover:border-primary transition-colors p-8 flex flex-col md:flex-row items-center gap-12 group opacity-90">
-<div class="flex flex-col gap-1 min-w-[120px]">
-<span class="font-flight-data text-flight-data text-primary">vOO 921</span>
-<span class="font-label-caps text-label-caps text-secondary">AIRBUS A330neo</span>
-</div>
-<div class="flex-1 flex items-center gap-8 w-full">
-<div class="text-center md:text-left">
-<div class="font-display-lg text-3xl font-bold text-on-surface">SIN</div>
-<div class="font-body-sm text-body-sm text-secondary">Singapore</div>
-<div class="font-flight-data text-base mt-2 line-through text-outline">22:10</div>
-</div>
-<div class="flex-1 flex flex-col items-center gap-2">
-<div class="w-full h-[1px] bg-outline relative">
-<span class="material-symbols-outlined absolute -top-3 right-0 text-primary" style="font-variation-settings: 'FILL' 1;">flight_land</span>
-</div>
-<span class="font-label-caps text-[10px] text-primary uppercase tracking-tighter">In Flight</span>
-</div>
-<div class="text-center md:text-right">
-<div class="font-display-lg text-3xl font-bold text-on-surface">SYD</div>
-<div class="font-body-sm text-body-sm text-secondary">Sydney</div>
-<div class="font-flight-data text-base mt-2">07:45</div>
-</div>
-</div>
-<div class="flex flex-col md:items-end gap-4 min-w-[160px] w-full md:w-auto">
-<div class="inline-flex items-center gap-2 bg-secondary-container px-3 py-1.5 rounded-full">
-<span class="w-2 h-2 rounded-full bg-secondary"></span>
-<span class="font-label-caps text-label-caps text-on-secondary-container">DEPARTED</span>
-</div>
-<button class="border border-outline-variant text-on-surface-variant font-manrope font-bold text-xs uppercase py-3 px-6 hover:bg-surface-container transition-colors w-full">Track Flight</button>
-</div>
-</div>
-</div><div class="mt-8 grid grid-cols-1 md:grid-cols-3 gap-gutter">
-<div class="md:col-span-2 bg-surface-container p-8 relative overflow-hidden group">
-<div class="relative z-10 h-full flex flex-col justify-between">
-<div>
-<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Real-time Precision</h3>
-<p class="font-body-base text-secondary max-w-md">Our global tracking network uses satellite telemetry to provide second-by-second updates on your vOO journey.</p>
-</div>
-<a class="inline-flex items-center gap-2 font-manrope font-bold text-primary mt-6 group-hover:gap-4 transition-all" href="#">
-                        VIEW NETWORK MAP <span class="material-symbols-outlined">arrow_forward</span>
-</a>
-</div>
-<div class="absolute right-0 top-0 h-full w-1/3 opacity-10 group-hover:opacity-20 transition-opacity">
-<span class="material-symbols-outlined text-[200px]" style="font-variation-settings: 'wght' 100;">public</span>
-</div>
-</div>
-<div class="bg-white border border-outline-variant p-8">
-<span class="material-symbols-outlined text-primary text-3xl mb-4">notifications_active</span>
-<h3 class="font-headline-md text-lg text-on-surface mb-2">Push Alerts</h3>
-<p class="font-body-sm text-secondary mb-6">Receive gate changes and status updates directly to your mobile device.</p>
-<button class="text-primary font-manrope font-bold text-xs uppercase border-b-2 border-primary pb-1">Set Alert</button>
-</div>
-</div>
-    </div>
-  </div>
-</div>
 <main class="pt-32 pb-20 space-y-24 bg-mesh">
 <!-- Hero & Flight Search Section -->
 <section class="max-w-screen-2xl mx-auto px-8">
 <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
-<div class="lg:col-span-5 flex items-center justify-center lg:justify-start" style="overflow:visible;">
+<div class="lg:col-span-5 flex items-center justify-center lg:justify-start">
   <img src="/assets/images/logo.png"
     alt="vOO Airline"
-    style="width:100%;max-width:420px;height:auto;object-fit:contain;filter:drop-shadow(0 8px 32px rgba(0,0,0,0.08));transform:scale(1.25);transform-origin:left center;"
-  />
+    style="width:100%;max-width:420px;height:auto;object-fit:contain;filter:drop-shadow(0 8px 32px rgba(0,0,0,0.08));"
+  / class="scale-200 origin-center max-w-none">
 </div>
 <div class="lg:col-span-7 bg-surface-container-lowest border border-outline-variant p-8 shadow-[0px_10px_30px_rgba(0,0,0,0.04)] rounded-xl">
 <input type="hidden" id="voo-flight-type" value="ROUNDTRIP"/>
@@ -464,7 +331,7 @@
   <!-- Seat Map -->
   <div class="lg:col-span-2 bg-surface-container-lowest border border-outline-variant rounded-xl p-10 overflow-hidden relative">
     <div class="absolute inset-0 opacity-[0.03] pointer-events-none">
-      <img class="w-full h-full object-cover" src="/assets/images/lounge.jpg"/>
+      <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAvnhHd2lXvQ95fZPibE8r2iNryF-ntwrxAYhLXgmavrLs5LjAW4-3on3i5Pl6tUCSGsOadT8AR2KB-Mhndrn6EU5z34akriVMOCXPWFhEozmwAmzj0mYF8jGLoCjKcjpIeD5P_gV2M6u9K3w5LwmCxW-1XAZTPRxUAA208Z_o1dtFo7mqrrlxhlXDcSTXUbA07MKL_YzJEUXaEVbW3_YNiNG8VSKDXM1Ztca4DG6gqp-aqMCw36uydpo1-zhn106nqbA2wl8hPxXI"/>
     </div>
     <div class="relative z-10">
       <!-- Legend -->
@@ -649,13 +516,11 @@
   <!-- Globe image — left side -->
   <img src="/assets/images/globo.png" alt="Globe"
     style="position:absolute;left:-4%;top:50%;transform:translateY(-50%);height:110%;width:auto;object-fit:contain;pointer-events:none;opacity:0.92;"/>
-  <!-- Text — right side, constrained to same width as hero (max-w-screen-2xl px-8) -->
-  <div style="position:relative;z-index:10;width:100%;max-width:1536px;margin:0 auto;padding:0 2rem;display:flex;justify-content:flex-end;">
-    <div style="max-width:480px;">
-      <p style="font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#9a8a70;margin:0 0 1rem;">vOO Airways — Global Network</p>
-      <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#1a1c1c;line-height:1.15;margin:0 0 1.2rem;">Wherever you need<br>to be, we fly there.</h2>
-      <p style="font-family:'Inter',sans-serif;font-size:1rem;color:#5f5e5e;line-height:1.7;margin:0;max-width:360px;">12 destinations. Every continent. Engineered for precision, designed for comfort.</p>
-    </div>
+  <!-- Text — right side -->
+  <div style="position:relative;z-index:10;margin-left:auto;padding:0 8%;max-width:480px;">
+    <p style="font-family:'Space Grotesk',sans-serif;font-size:11px;letter-spacing:0.2em;text-transform:uppercase;color:#9a8a70;margin:0 0 1rem;">vOO Airways — Global Network</p>
+    <h2 style="font-family:'Manrope',sans-serif;font-size:clamp(2rem,4vw,3rem);font-weight:700;color:#1a1c1c;line-height:1.15;margin:0 0 1.2rem;">Wherever you need<br>to be, we fly there.</h2>
+    <p style="font-family:'Inter',sans-serif;font-size:1rem;color:#5f5e5e;line-height:1.7;margin:0;max-width:360px;">12 destinations. Every continent. Engineered for precision, designed for comfort.</p>
   </div>
 </section>
 
@@ -1073,81 +938,4 @@ document.addEventListener("DOMContentLoaded", function() {
   };
 });
 </script>
-
-<script>
-function openFlightStatus() {
-  document.getElementById('pip-flight-status').classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
-}
-function closeFlightStatus() {
-  document.getElementById('pip-flight-status').classList.add('hidden');
-  document.body.style.overflow = '';
-}
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeFlightStatus();
-});
-</script>
-
-<!-- ── Sign In PiP ──────────────────────────────────────────────────────────── -->
-<div id="pip-signin" class="fixed inset-0 z-[70] bg-black/30 backdrop-blur-sm flex items-start justify-end p-6 hidden" onclick="if(event.target===this)closeSignIn()">
-  <div class="bg-surface-container-lowest border border-outline-variant shadow-[0px_40px_100px_rgba(0,0,0,0.18)] rounded-xl w-full max-w-sm flex flex-col overflow-hidden" style="margin-top:5rem;" onclick="event.stopPropagation()">
-    <!-- Header -->
-    <div class="flex justify-between items-center px-8 py-5 border-b border-outline-variant bg-white">
-      <div class="flex items-center gap-3">
-        <div class="text-xl font-black tracking-tighter"><span style="color:#a26309;">v</span><span style="color:#585858;">OO</span></div>
-        <span class="font-label-caps text-label-caps text-secondary">ACCOUNT</span>
-      </div>
-      <button onclick="closeSignIn()" class="material-symbols-outlined text-slate-500 hover:text-slate-800 transition-colors bg-transparent border-none cursor-pointer text-base">close</button>
-    </div>
-    <!-- Body -->
-    <div class="px-8 py-8 space-y-5">
-      <div class="space-y-1">
-        <label class="font-label-caps text-label-caps text-outline block">EMAIL</label>
-        <input type="email" placeholder="your@email.com"
-          class="w-full border-b border-outline-variant bg-transparent py-2 font-body-base text-body-base focus:border-primary focus:ring-0 outline-none transition-colors placeholder:text-surface-dim"/>
-      </div>
-      <div class="space-y-1">
-        <label class="font-label-caps text-label-caps text-outline block">PASSWORD</label>
-        <input type="password" placeholder="••••••••"
-          class="w-full border-b border-outline-variant bg-transparent py-2 font-body-base text-body-base focus:border-primary focus:ring-0 outline-none transition-colors placeholder:text-surface-dim"/>
-      </div>
-      <div class="flex justify-end">
-        <a href="#" class="font-label-caps text-label-caps text-primary hover:underline">Forgot password?</a>
-      </div>
-      <button class="w-full bg-primary text-on-primary py-4 font-manrope font-bold uppercase tracking-widest text-sm hover:brightness-110 active:scale-[0.98] transition-all rounded-lg">
-        Sign In
-      </button>
-      <div class="flex items-center gap-4">
-        <div class="h-px flex-1 bg-outline-variant"></div>
-        <span class="font-label-caps text-label-caps text-outline">OR</span>
-        <div class="h-px flex-1 bg-outline-variant"></div>
-      </div>
-      <button class="w-full border border-outline-variant py-4 font-manrope font-semibold text-sm hover:bg-surface-container transition-colors rounded-lg flex items-center justify-center gap-3">
-        <svg width="18" height="18" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.583c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.962L3.964 6.294C4.672 4.167 6.656 3.583 9 3.583z" fill="#EA4335"/></svg>
-        Continue with Google
-      </button>
-      <p class="text-center font-body-sm text-secondary text-sm">
-        Don't have an account?
-        <a href="#" class="text-primary font-semibold hover:underline ml-1">Create one</a>
-      </p>
-    </div>
-  </div>
-</div>
-
-<script>
-function openSignIn() {
-  document.getElementById('pip-signin').classList.remove('hidden');
-  document.body.style.overflow = 'hidden';
-}
-function closeSignIn() {
-  document.getElementById('pip-signin').classList.add('hidden');
-  document.body.style.overflow = '';
-}
-document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') {
-    closeSignIn();
-  }
-});
-</script>
-
 </body></html>
