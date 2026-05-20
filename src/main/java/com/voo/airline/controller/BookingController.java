@@ -23,9 +23,6 @@ public class BookingController {
 
     private final BookingService bookingService;
 
-    // ---------------------------------------- //
-    //  POST /api/bookings
-    // ---------------------------------------- //
     @PostMapping
     @Operation(summary = "Criar uma nova reserva")
     public ResponseEntity<ApiResponse<BookingResponse>> create(
@@ -37,9 +34,6 @@ public class BookingController {
             .body(ApiResponse.ok("Reserva criada com sucesso!", booking));
     }
 
-    // ---------------------------------------- //
-    //  GET /api/bookings/:locator
-    // ---------------------------------------- //
     @GetMapping("/{locator}")
     @Operation(summary = "Buscar reserva pelo localizador")
     public ResponseEntity<ApiResponse<BookingResponse>> findByLocator(
@@ -50,9 +44,6 @@ public class BookingController {
         );
     }
 
-    // ---------------------------------------- //
-    //  GET /api/bookings?page=0&size=20
-    // ---------------------------------------- //
     @GetMapping
     @Operation(summary = "Listar todas as reservas (paginado)")
     public ResponseEntity<ApiResponse<Page<BookingResponse>>> findAll(
@@ -66,9 +57,6 @@ public class BookingController {
         );
     }
 
-    // ---------------------------------------- //
-    //  PATCH /api/bookings/:locator/cancel
-    // ---------------------------------------- //
     @PatchMapping("/{locator}/cancel")
     @Operation(summary = "Cancelar uma reserva")
     public ResponseEntity<ApiResponse<BookingResponse>> cancel(
@@ -76,6 +64,16 @@ public class BookingController {
     ) {
         return ResponseEntity.ok(
             ApiResponse.ok("Reserva cancelada.", bookingService.cancel(locator))
+        );
+    }
+
+    @PatchMapping("/{locator}/complete")
+    @Operation(summary = "Concluir uma reserva após check-in")
+    public ResponseEntity<ApiResponse<BookingResponse>> complete(
+        @PathVariable String locator
+    ) {
+        return ResponseEntity.ok(
+            ApiResponse.ok("Check-in concluído.", bookingService.complete(locator))
         );
     }
 }

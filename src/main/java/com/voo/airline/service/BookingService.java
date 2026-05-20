@@ -14,4 +14,6 @@ public interface BookingService {
     Page<BookingResponse> findAll(Pageable pageable);
 
     BookingResponse cancel(String locator);
+
+    BookingResponse complete(String locator);
 }

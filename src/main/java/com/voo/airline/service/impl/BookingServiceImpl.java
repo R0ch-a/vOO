@@ -29,35 +29,19 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.Random;
 
-/**
- * Implementação do serviço de reservas da vOO.
- *
- * Orquestra os padrões de projeto:
- *   - Validator Chain (Chain of Responsibility + Template Method) para validações
- *   - PriceStrategyFactory (Factory + Strategy) para cálculo de preço
- *   - PaymentFactory (Factory) para criação do pagamento
- *   - BookingMapper para conversão entity <-> DTO
- *   - ApplicationEventPublisher (Observer) para notificações
- *
- * O Service permanece enxuto: não contém lógica de validação,
- * precificação ou conversão — apenas orquestra as colaborações.
- */
 @Slf4j
 @Service
 @RequiredArgsConstructor
 public class BookingServiceImpl implements BookingService {
 
-    // Repositórios
-    private final BookingRepository   bookingRepository;
-    private final PassengerRepository passengerRepository;
-    private final PaymentRepository   paymentRepository;
-
-    // Padrões de projeto
-    private final BookingValidatorChain    validatorChain;     // Chain of Responsibility
-    private final PriceStrategyFactory     priceStrategyFactory; // Factory + Strategy
-    private final PaymentFactory           paymentFactory;       // Factory
-    private final BookingMapper            bookingMapper;        // Mapper
-    private final ApplicationEventPublisher eventPublisher;      // Observer
+    private final BookingRepository        bookingRepository;
+    private final PassengerRepository      passengerRepository;
+    private final PaymentRepository        paymentRepository;
+    private final BookingValidatorChain    validatorChain;
+    private final PriceStrategyFactory     priceStrategyFactory;
+    private final PaymentFactory           paymentFactory;
+    private final BookingMapper            bookingMapper;
+    private final ApplicationEventPublisher eventPublisher;
 
     // ------------------------------------------------------------------ //
     //  CREATE
@@ -67,30 +51,22 @@ public class BookingServiceImpl implements BookingService {
     public BookingResponse create(CreateBookingRequest req) {
         log.info("Criando reserva: {} -> {} em {}", req.origin(), req.destination(), req.depDate());
 
-        // 1. Executar cadeia de validação (Chain of Responsibility + Template Method)
         validatorChain.validateAll(req);
 
-        // 2. Resolver / criar passageiro (encapsulamento: Passenger.of())
         Passenger passenger = resolvePassenger(req.passengerData());
 
-        // 3. Calcular preço via Strategy (Factory -> PriceStrategy -> calculate())
         PriceStrategy strategy   = priceStrategyFactory.getStrategy(req.flightClass());
-        int           passengers = req.passengerData() != null ? 1 : 1; // extensível
-        BigDecimal    totalPrice = strategy.calculate(req.flightType(), passengers);
+        BigDecimal    totalPrice = strategy.calculate(req.flightType(), 1);
         log.debug("Estratégia aplicada: {} — total: R$ {}", strategy.getStrategyName(), totalPrice);
 
-        // 4. Gerar localizador único
         String locator = generateLocator(req.locator());
 
-        // 5. Criar entidade via Mapper (nenhum construtor público exposto)
         Booking booking = bookingMapper.toEntity(req, locator, totalPrice, passenger);
         booking = bookingRepository.save(booking);
 
-        // 6. Registrar pagamento via Factory
         Payment payment = paymentFactory.create(booking, req.payMethod(), totalPrice);
         paymentRepository.save(payment);
 
-        // 7. Publicar evento (Observer) — notificação assíncrona
         eventPublisher.publishEvent(new BookingCreatedEvent(this, booking));
 
         log.info("Reserva {} criada com sucesso — R$ {}", locator, totalPrice);
@@ -124,11 +100,9 @@ public class BookingServiceImpl implements BookingService {
         Booking booking = bookingRepository.findByLocator(locator.toUpperCase())
             .orElseThrow(() -> new ResourceNotFoundException("Reserva", "locator", locator));
 
-        // Encapsulamento: a lógica de cancelamento (e validação de estado) fica na entidade
         booking.cancel();
         bookingRepository.save(booking);
 
-        // Publicar evento de cancelamento (Observer)
         eventPublisher.publishEvent(new BookingCancelledEvent(this, booking));
 
         log.info("Reserva {} cancelada.", locator);
@@ -136,9 +110,24 @@ public class BookingServiceImpl implements BookingService {
     }
 
     // ------------------------------------------------------------------ //
+    //  COMPLETE
+    // ------------------------------------------------------------------ //
+    @Override
+    @Transactional
+    public BookingResponse complete(String locator) {
+        Booking booking = bookingRepository.findByLocator(locator.toUpperCase())
+            .orElseThrow(() -> new ResourceNotFoundException("Reserva", "locator", locator));
+
+        booking.complete();
+        bookingRepository.save(booking);
+
+        log.info("Reserva {} concluída via check-in.", locator);
+        return bookingMapper.toResponse(booking);
+    }
+
+    // ------------------------------------------------------------------ //
     //  HELPERS PRIVADOS
     // ------------------------------------------------------------------ //
-
     private Passenger resolvePassenger(PassengerDataRequest data) {
         if (data.cpf() != null && !data.cpf().isBlank()) {
             String cpfLimpo = data.cpf().replaceAll("[^0-9]", "");
