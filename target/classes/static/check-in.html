@@ -112,29 +112,25 @@
 <header class="bg-white/90 dark:bg-slate-950/90 backdrop-blur-md fixed top-0 w-full z-50 border-b border-slate-200 dark:border-slate-800 shadow-[0px_10px_30px_rgba(0,0,0,0.04)]">
 <div class="flex justify-between items-center h-20 px-8 max-w-screen-2xl mx-auto">
 <div class="flex items-center gap-2">
-<div class="flex items-center gap-2">
 <div class="text-4xl font-black tracking-tighter"><span style="color:#a26309;">v</span><span style="color:#585858;">OO</span></div>
 <span class="material-symbols-outlined" style="color:#a26309;font-size:1.4rem;font-variation-settings:'FILL' 1,'wght' 400;">flight_takeoff</span>
 </div>
-<span class="material-symbols-outlined" style="color:#a26309;font-size:1.4rem;font-variation-settings:'FILL' 1,'wght' 400;" >flight_takeoff</span>
-</div>
 <nav class="hidden md:flex items-center space-x-8">
-<a class="font-manrope text-sm font-medium tracking-wide text-slate-600 hover:text-yellow-600 transition-colors" href="index.html">Book</a>
-<a class="font-manrope text-sm font-medium tracking-wide text-slate-600 hover:text-yellow-600 transition-colors" href="my-trips.html">My Trips</a>
+<a class="font-manrope text-sm font-medium tracking-wide text-slate-600 dark:text-slate-400 hover:text-yellow-600" href="index.html">Book</a>
+<a class="font-manrope text-sm font-medium tracking-wide text-slate-600 dark:text-slate-400 hover:text-yellow-600" href="my-trips.html">My Trips</a>
 <a class="font-manrope text-sm font-medium tracking-wide text-yellow-700 border-b-2 border-yellow-700 pb-1" href="check-in.html">Check-in</a>
 </nav>
 <div class="flex items-center space-x-6">
-<button onclick="openFlightStatus()" title="Flight Status" class="material-symbols-outlined text-slate-600 cursor-pointer hover:text-yellow-600 transition-colors bg-transparent border-none p-0">language</button>
-<span class="material-symbols-outlined text-slate-600 cursor-pointer">support</span>
-<button class="bg-primary text-white px-6 py-2 rounded-lg font-manrope text-sm font-semibold active:scale-95 transition-all">Sign In</button>
+<button onclick="openFlightStatus()" title="Flight Status" class="material-symbols-outlined text-slate-600 cursor-pointer hover:text-yellow-600 transition-colors bg-transparent border-none p-0 leading-none">language</button>
+<button onclick="openSignIn()" class="bg-primary text-white px-6 py-2 rounded-lg font-manrope text-sm font-semibold active:scale-95 transition-all">Sign In</button>
 </div>
 </div>
 </header>
 
 
 <!-- Flight Status PiP -->
-<div id="pip-flight-status" class="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-start justify-end p-6 hidden" onclick="if(event.target===this)closeFlightStatus()">
-  <div class="bg-surface-container-lowest border border-outline-variant shadow-[0px_40px_100px_rgba(0,0,0,0.15)] rounded-xl w-full max-w-2xl flex flex-col overflow-hidden" style="max-height:85vh;margin-top:5rem;" onclick="event.stopPropagation()">
+<div id="pip-flight-status" class="fixed inset-0 z-50 bg-black/30 backdrop-blur-sm flex items-center justify-center p-6 hidden" onclick="if(event.target===this)closeFlightStatus()">
+  <div class="bg-surface-container-lowest border border-outline-variant shadow-[0px_40px_100px_rgba(0,0,0,0.15)] rounded-xl w-full max-w-4xl flex flex-col overflow-hidden" style="max-height:85vh;" onclick="event.stopPropagation()">
     <!-- PiP Header -->
     <div class="flex justify-between items-center px-8 py-5 border-b border-outline-variant bg-white sticky top-0 z-10">
       <div class="flex items-center gap-3">
@@ -275,22 +271,28 @@
 
 
 <!-- Unified Step Indicator -->
-<div class="flex justify-center mb-16">
-  <div class="flex items-center gap-4">
-    <div id="step-dot-1" class="flex items-center gap-2">
-      <span class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-caps text-label-caps">1</span>
-      <span class="font-label-caps text-label-caps text-primary">FIND FLIGHT</span>
+<div class="flex justify-between mb-16 relative max-w-lg mx-auto w-full">
+  <!-- Background line -->
+  <div class="absolute top-4 left-0 w-full h-px bg-surface-variant -z-10"></div>
+
+  <!-- Step 1 -->
+  <div id="step-dot-1" class="flex flex-col items-center gap-2 bg-background px-4">
+    <div id="step-num-1" class="w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center text-sm">
+      <span class="material-symbols-outlined text-sm" style="font-variation-settings:'FILL' 1;">check</span>
     </div>
-    <div id="step-line-1" class="w-12 h-px bg-outline-variant"></div>
-    <div id="step-dot-2" class="flex items-center gap-2">
-      <span id="step-num-2" class="w-8 h-8 rounded-full border border-outline text-outline flex items-center justify-center font-label-caps text-label-caps">2</span>
-      <span id="step-label-2" class="font-label-caps text-label-caps text-outline">PASSENGER</span>
-    </div>
-    <div id="step-line-2" class="w-12 h-px bg-outline-variant"></div>
-    <div id="step-dot-3" class="flex items-center gap-2">
-      <span id="step-num-3" class="w-8 h-8 rounded-full border border-outline text-outline flex items-center justify-center font-label-caps text-label-caps">3</span>
-      <span id="step-label-3" class="font-label-caps text-label-caps text-outline">BOARDING PASS</span>
-    </div>
+    <span id="step-label-1" class="font-label-caps text-label-caps text-outline">FIND FLIGHT</span>
+  </div>
+
+  <!-- Step 2 -->
+  <div id="step-dot-2" class="flex flex-col items-center gap-2 bg-background px-4">
+    <div id="step-num-2" class="w-8 h-8 rounded-full border border-outline text-outline bg-background flex items-center justify-center text-sm font-bold">2</div>
+    <span id="step-label-2" class="font-label-caps text-label-caps text-outline">PASSENGER</span>
+  </div>
+
+  <!-- Step 3 -->
+  <div id="step-dot-3" class="flex flex-col items-center gap-2 bg-background px-4">
+    <div id="step-num-3" class="w-8 h-8 rounded-full border border-outline text-outline bg-background flex items-center justify-center text-sm font-bold">3</div>
+    <span id="step-label-3" class="font-label-caps text-label-caps text-outline">BOARDING PASS</span>
   </div>
 </div>
 
@@ -299,29 +301,30 @@
     </div>
 <div class="grid grid-cols-12 gap-gutter">
 <!-- Hero Title -->
-<div class="col-span-12 mb-8">
+<div id="ci-hero-title" class="col-span-12 mb-8">
 <h1 class="font-display-lg text-display-lg text-on-background">Check-in</h1>
 <p class="font-body-base text-body-base text-secondary mt-2">Manage your journey with technical precision.</p>
 </div>
 <!-- Step 1: Find Flight Form -->
-<div class="col-span-12 lg:col-span-5">
+<div id="ci-form-card" class="col-span-12 lg:col-span-5">
 <div class="bg-surface-container-lowest border border-outline-variant p-10 shadow-[0px_10px_30px_rgba(0,0,0,0.04)] rounded-lg">
 <h2 class="font-headline-md text-headline-md mb-8">Locate your trip</h2>
-<form class="space-y-8">
+<form class="space-y-8" onsubmit="return false;">
 <div>
-<label class="block font-label-caps text-label-caps text-outline mb-2">BOOKING REFERENCE (PNR)</label>
-<input class="w-full border-b border-outline-variant bg-transparent py-3 font-flight-data text-flight-data focus:border-primary focus:ring-0 outline-none transition-colors placeholder:text-surface-dim" placeholder="e.g. VOO7X9" type="text"/>
+  <label class="block font-label-caps text-label-caps text-outline mb-2">BOOKING REFERENCE (PNR)</label>
+  <input id="ci-locator" class="w-full border-b border-outline-variant bg-transparent py-3 font-flight-data text-flight-data focus:border-primary focus:ring-0 outline-none transition-colors placeholder:text-surface-dim" placeholder="e.g. VOOABC123 (not the flight number)" type="text" autocomplete="off"/>
 </div>
 <div>
-<label class="block font-label-caps text-label-caps text-outline mb-2">LAST NAME</label>
-<input class="w-full border-b border-outline-variant bg-transparent py-3 font-body-base text-body-base focus:border-primary focus:ring-0 outline-none transition-colors placeholder:text-surface-dim" placeholder="As it appears on your passport" type="text"/>
+  <label class="block font-label-caps text-label-caps text-outline mb-2">CPF</label>
+  <input id="ci-cpf" class="w-full border-b border-outline-variant bg-transparent py-3 font-body-base text-body-base focus:border-primary focus:ring-0 outline-none transition-colors placeholder:text-surface-dim" placeholder="000.000.000-00" maxlength="14" oninput="maskCpfCI(this)" type="text"/>
 </div>
-<button type="button" onclick="goToStep(2)" class="w-full bg-primary text-on-primary py-5 font-manrope font-bold uppercase tracking-widest text-sm hover:brightness-110 active:scale-[0.98] transition-all">Continue to passenger details</button>
+<div id="ci-error" class="hidden text-sm font-body-sm" style="color:#ba1a1a;"></div>
+<button type="button" id="ci-locate-btn" onclick="locateFlight()" class="w-full bg-primary text-on-primary py-5 font-manrope font-bold uppercase tracking-widest text-sm hover:brightness-110 active:scale-[0.98] transition-all">Continue to passenger details</button>
 </form>
 </div>
 </div>
 <!-- Contextual Info / Bento Side -->
-<div class="col-span-12 lg:col-span-7 grid grid-cols-2 gap-gutter">
+<div id="ci-bento" class="col-span-12 lg:col-span-7 grid grid-cols-2 gap-gutter">
 <div class="col-span-2 md:col-span-1 bg-surface-container p-8 border border-outline-variant rounded-lg">
 <span class="material-symbols-outlined text-primary mb-4">info</span>
 <h3 class="font-headline-md text-headline-md text-base mb-2">Online Check-in Window</h3>
@@ -343,50 +346,37 @@
 </div>
 </div>
 </div>
-<!-- CTA to proceed to Step 2 -->
-<div class="col-span-12 mt-16">
-  <div class="flex items-center gap-4 mb-8">
+<!-- PREVIEW: Step 2 & 3 — static, non-interactive -->
+<div id="ci-preview" class="col-span-12 mt-16 opacity-40 pointer-events-none select-none">
+  <div class="flex items-center gap-4 mb-6">
     <div class="h-px flex-1 bg-outline-variant"></div>
-    <span class="font-label-caps text-label-caps text-outline">WHAT COMES NEXT</span>
+    <span class="font-label-caps text-label-caps text-outline">PREVIEW: STEP 2 PASSENGER DETAILS</span>
     <div class="h-px flex-1 bg-outline-variant"></div>
   </div>
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-    <!-- Step 2 preview card -->
-    <button type="button" onclick="goToStep(2)"
-      class="group col-span-1 md:col-span-2 bg-white border border-outline-variant rounded-xl p-8 text-left hover:border-primary hover:shadow-[0px_10px_30px_rgba(0,0,0,0.08)] transition-all">
-      <div class="flex justify-between items-start mb-6">
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+    <div class="bg-surface-container p-6 rounded border border-outline-variant">
+      <div class="flex justify-between items-start mb-4">
         <div>
-          <span class="font-label-caps text-label-caps text-primary uppercase tracking-widest">Step 2</span>
-          <h3 class="font-headline-md text-headline-md text-on-surface mt-1">Passenger Details &amp; Seat</h3>
-          <p class="font-body-sm text-secondary mt-2">Review your booking, select your seat and confirm passenger information.</p>
+          <p class="font-label-caps text-label-caps text-secondary">FLIGHT</p>
+          <p class="font-flight-data text-flight-data">VO 482</p>
         </div>
-        <span class="material-symbols-outlined text-outline-variant group-hover:text-primary transition-colors text-3xl">arrow_forward</span>
+        <span class="material-symbols-outlined text-primary">flight_takeoff</span>
       </div>
-      <div class="flex items-center gap-4 pt-6 border-t border-outline-variant">
-        <div class="flex items-center gap-2 text-sm text-secondary">
-          <span class="material-symbols-outlined text-primary text-base">airline_seat_recline_extra</span>
-          Seat selection
-        </div>
-        <div class="w-px h-4 bg-outline-variant"></div>
-        <div class="flex items-center gap-2 text-sm text-secondary">
-          <span class="material-symbols-outlined text-primary text-base">person</span>
-          Passenger info
-        </div>
-        <div class="w-px h-4 bg-outline-variant"></div>
-        <div class="flex items-center gap-2 text-sm text-secondary">
-          <span class="material-symbols-outlined text-primary text-base">luggage</span>
-          Baggage
-        </div>
+      <div class="space-y-2">
+        <p class="font-body-base text-body-base">London (LHR) → New York (JFK)</p>
+        <p class="font-body-sm text-body-sm text-secondary">14 OCT 2024 • 10:45 AM</p>
       </div>
-    </button>
-    <!-- Step 3 preview card -->
-    <button type="button" onclick="goToStep(3)"
-      class="group col-span-1 bg-primary/5 border border-primary/20 rounded-xl p-8 text-left hover:bg-primary/10 hover:border-primary transition-all">
-      <span class="material-symbols-outlined text-primary text-3xl mb-4 block" style="font-variation-settings:'FILL' 1;">qr_code_2</span>
-      <span class="font-label-caps text-label-caps text-primary uppercase tracking-widest">Step 3</span>
-      <h3 class="font-headline-md text-headline-md text-on-surface mt-1">Boarding Pass</h3>
-      <p class="font-body-sm text-secondary mt-2">Download, print or save your boarding pass to your wallet.</p>
-    </button>
+    </div>
+    <div class="md:col-span-2 bg-surface-container p-6 rounded border border-outline-variant flex gap-8 items-center">
+      <div class="w-32 h-32 bg-surface-container-highest flex items-center justify-center rounded border border-outline-variant">
+        <span class="material-symbols-outlined text-4xl text-outline">airline_seat_recline_extra</span>
+      </div>
+      <div>
+        <p class="font-label-caps text-label-caps text-secondary">SELECTED SEAT</p>
+        <p class="font-display-lg text-display-lg text-2xl">12A (Business)</p>
+        <p class="font-body-sm text-body-sm text-secondary mt-1">Window seat with extra legroom.</p>
+      </div>
+    </div>
   </div>
 </div>
 </div>
@@ -400,7 +390,7 @@
 <!-- Passenger Info Card -->
 <div class="bg-white border border-outline-variant p-8 rounded shadow-[0px_10px_30px_rgba(0,0,0,0.04)] flex justify-between items-center">
 <div>
-<h2 class="font-headline-md text-headline-md text-on-surface mb-1">Johnathan Doe</h2>
+<h2 id="ci2-name" class="font-headline-md text-headline-md text-on-surface mb-1">Johnathan Doe</h2>
 <div class="flex items-center gap-3">
 <span class="font-label-caps text-[10px] tracking-widest px-2 py-0.5 bg-primary-fixed text-on-primary-fixed-variant rounded">vOO ELITE PLUS</span>
 <span class="text-body-sm text-on-surface-variant">Frequent Flyer: #VOO-98234-JX</span>
@@ -408,13 +398,13 @@
 </div>
 <div class="text-right">
 <p class="font-label-caps text-label-caps text-on-surface-variant">SELECTED SEAT</p>
-<p class="font-flight-data text-flight-data text-primary font-bold">12A (Window)</p>
+<p id="ci2-seat" class="font-flight-data text-flight-data text-primary font-bold">12A (Window)</p>
 </div>
 </div>
 <!-- Seat Selection Visual -->
 <div class="bg-white border border-outline-variant rounded shadow-[0px_10px_30px_rgba(0,0,0,0.04)] overflow-hidden">
 <div class="bg-surface-container-low px-8 py-4 border-b border-outline-variant flex justify-between items-center">
-<span class="font-label-caps text-label-caps text-on-surface-variant">BUSINESS CLASS CABIN - BOEING 787-9</span>
+<span class="font-label-caps text-label-caps text-on-surface-variant"><span id="ci2-class">Business Plus</span> CABIN — <span id="ci2-aircraft">Boeing 787-9</span></span>
 <div class="flex gap-6 items-center">
 <div class="flex items-center gap-2">
 <div class="w-4 h-4 rounded-sm border border-outline-variant"></div>
@@ -480,14 +470,14 @@
 <div class="bg-white border border-outline-variant rounded shadow-[0px_10px_30px_rgba(0,0,0,0.04)] overflow-hidden">
 <div class="bg-primary px-6 py-4 flex justify-between items-center">
 <span class="text-on-primary font-headline-md text-sm font-bold">FLIGHT SUMMARY</span>
-<span class="text-on-primary/80 font-flight-data text-sm">VO 482</span>
+<span id="ci2-flightnum" class="text-on-primary/80 font-flight-data text-sm">VO 482</span>
 </div>
 <div class="p-6">
 <div class="flex justify-between items-start mb-8">
 <div>
-<h3 class="font-display-lg text-2xl font-bold">LHR</h3>
-<p class="text-body-sm text-on-surface-variant">London Heathrow</p>
-<p class="text-flight-data text-sm mt-1 font-bold">11:20</p>
+<h3 id="ci2-origin" class="font-display-lg text-2xl font-bold">LHR</h3>
+<p id="ci2-origincity" class="text-body-sm text-on-surface-variant">London Heathrow</p>
+<p id="ci2-deptime" class="text-flight-data text-sm mt-1 font-bold">11:20</p>
 </div>
 <div class="flex flex-col items-center px-4 pt-2">
 <span class="material-symbols-outlined text-primary mb-1">flight_takeoff</span>
@@ -497,23 +487,23 @@
 <span class="font-label-caps text-[9px] mt-2 text-on-surface-variant">7h 40m</span>
 </div>
 <div class="text-right">
-<h3 class="font-display-lg text-2xl font-bold">JFK</h3>
-<p class="text-body-sm text-on-surface-variant">New York JFK</p>
-<p class="text-flight-data text-sm mt-1 font-bold">14:00</p>
+<h3 id="ci2-dest" class="font-display-lg text-2xl font-bold">JFK</h3>
+<p id="ci2-destcity" class="text-body-sm text-on-surface-variant">New York JFK</p>
+<p id="ci2-arrtime" class="text-flight-data text-sm mt-1 font-bold">14:00</p>
 </div>
 </div>
 <div class="border-t border-dashed border-outline-variant pt-6 flex flex-col gap-4">
 <div class="flex justify-between items-center">
 <span class="text-body-sm text-on-surface-variant">Date</span>
-<span class="text-body-sm font-semibold">24 OCT 2024</span>
+<span id="ci2-daterow" class="text-body-sm font-semibold">24 OCT 2024</span>
 </div>
 <div class="flex justify-between items-center">
 <span class="text-body-sm text-on-surface-variant">Cabin Class</span>
-<span class="text-body-sm font-semibold">Business</span>
+<span id="ci2-classrow" class="text-body-sm font-semibold">Business</span>
 </div>
 <div class="flex justify-between items-center">
 <span class="text-body-sm text-on-surface-variant">Aircraft</span>
-<span class="text-body-sm font-semibold">Boeing 787-9</span>
+<span id="ci2-aircraftrow" class="text-body-sm font-semibold">Boeing 787-9</span>
 </div>
 </div>
 </div>
@@ -526,7 +516,7 @@
 <span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">chair</span>
 </div>
 <div>
-<p class="font-bold">Seat 12A</p>
+<p class="font-bold">Seat <span id="ci2-seatrow">12A</span></p>
 <p class="text-body-sm text-on-surface-variant">Upper Deck Window</p>
 </div>
 </div>
@@ -550,7 +540,7 @@
 <span class="material-symbols-outlined text-primary text-4xl" data-icon="verified" data-weight="fill" style="font-variation-settings: 'FILL' 1;">verified</span>
 </div>
 <h1 class="font-display-lg text-display-lg text-on-surface mb-2">Check-in Successful</h1>
-<p class="font-body-base text-body-base text-secondary max-w-md mx-auto">Your journey with vOO is confirmed. You are ready to fly from London Heathrow to New York JFK.</p>
+<p id="ci3-successmsg" class="font-body-base text-body-base text-secondary max-w-md mx-auto">Your journey with vOO is confirmed. You are ready to fly from London Heathrow to New York JFK.</p>
 </div>
 <!-- Boarding Pass -->
 <div class="bg-surface-container-lowest rounded-xl border border-outline-variant shadow-[0px_10px_30px_rgba(0,0,0,0.04)] overflow-hidden flex flex-col md:flex-row mb-12">
@@ -559,18 +549,18 @@
 <div class="flex justify-between items-start mb-8">
 <div>
 <div class="text-2xl font-black tracking-tighter text-yellow-700">vOO</div>
-<div class="font-label-caps text-label-caps text-secondary">PREMIUM BUSINESS CLASS</div>
+<div id="ci3-class" class="font-label-caps text-label-caps text-secondary">PREMIUM BUSINESS CLASS</div>
 </div>
 <div class="text-right">
-<div class="font-flight-data text-flight-data text-on-surface">VO 482</div>
-<div class="font-label-caps text-label-caps text-secondary">24 OCT 2024</div>
+<div id="ci2-flight" class="font-flight-data text-flight-data text-on-surface">VO 482</div>
+<div id="ci2-date-bp" class="font-label-caps text-label-caps text-secondary">24 OCT 2024</div>
 </div>
 </div>
 <!-- Flight Info -->
 <div class="flex items-center justify-between gap-4 mb-10">
 <div class="flex-1">
-<div class="font-display-lg text-4xl text-on-surface">LHR</div>
-<div class="font-body-sm text-body-sm text-secondary">LONDON, UK</div>
+<div id="ci3-origin" class="font-display-lg text-4xl text-on-surface">LHR</div>
+<div id="ci3-origincity" class="font-body-sm text-body-sm text-secondary">LONDON, UK</div>
 </div>
 <div class="flex flex-col items-center flex-1 px-4">
 <div class="w-full h-px border-t border-dashed border-outline relative">
@@ -579,27 +569,27 @@
 <span class="font-label-caps text-[10px] text-outline mt-2">7H 55M NON-STOP</span>
 </div>
 <div class="flex-1 text-right">
-<div class="font-display-lg text-4xl text-on-surface">JFK</div>
-<div class="font-body-sm text-body-sm text-secondary">NEW YORK, US</div>
+<div id="ci3-dest" class="font-display-lg text-4xl text-on-surface">JFK</div>
+<div id="ci3-destcity" class="font-body-sm text-body-sm text-secondary">NEW YORK, US</div>
 </div>
 </div>
 <!-- Details Grid -->
 <div class="grid grid-cols-2 md:grid-cols-4 gap-8">
 <div>
 <div class="font-label-caps text-label-caps text-secondary mb-1">PASSENGER</div>
-<div class="font-body-base font-bold text-on-surface">DOE, JOHNATHAN</div>
+<div id="ci3-passenger" class="font-body-base font-bold text-on-surface">DOE, JOHNATHAN</div>
 </div>
 <div>
 <div class="font-label-caps text-label-caps text-secondary mb-1">GATE</div>
-<div class="font-flight-data text-flight-data text-primary">B34</div>
+<div id="ci3-gate" class="font-flight-data text-flight-data text-primary">B34</div>
 </div>
 <div>
 <div class="font-label-caps text-label-caps text-secondary mb-1">BOARDING</div>
-<div class="font-flight-data text-flight-data text-on-surface">10:05 AM</div>
+<div id="ci3-boarding" class="font-flight-data text-flight-data text-on-surface">10:05 AM</div>
 </div>
 <div>
 <div class="font-label-caps text-label-caps text-secondary mb-1">SEAT</div>
-<div class="font-flight-data text-flight-data text-primary">12A</div>
+<div id="ci3-seat" class="font-flight-data text-flight-data text-primary">12A</div>
 </div>
 </div>
 </div>
@@ -617,7 +607,7 @@
 <div class="font-label-caps text-[10px] tracking-widest text-outline">SCAN AT GATE</div>
 <div class="font-label-caps text-label-caps text-on-surface-variant font-bold border-t border-outline-variant pt-4 w-full">
                     BOOKING REF<br/>
-<span class="text-on-surface text-lg font-flight-data">VQ7X9R</span>
+<span id="ci3-locator" class="text-on-surface text-lg font-flight-data">VQ7X9R</span>
 </div>
 </div>
 </div>
@@ -696,36 +686,49 @@ Complete
 var currentStep = 1;
 
 function goToStep(n) {
-  // Hide all steps
-  document.getElementById('tab-1').classList.add('hidden');
-  document.getElementById('tab-2').classList.add('hidden');
-  document.getElementById('tab-3').classList.add('hidden');
-  // Show target
+  [1, 2, 3].forEach(function(i) {
+    document.getElementById('tab-' + i).classList.add('hidden');
+  });
   document.getElementById('tab-' + n).classList.remove('hidden');
   currentStep = n;
   updateStepIndicator(n);
+  /* Hide preview when leaving step 1 */
+  /* Elements only visible on step 1 */
+  var step1Els = ['ci-hero-title', 'ci-form-card', 'ci-bento', 'ci-preview'];
+  step1Els.forEach(function(id) {
+    var el = document.getElementById(id);
+    if (el) el.style.display = n === 1 ? '' : 'none';
+  });
   window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
+var STEP_LABELS = ['', 'FIND FLIGHT', 'PASSENGER', 'BOARDING PASS'];
+
 function updateStepIndicator(active) {
   [1, 2, 3].forEach(function(i) {
-    var num   = document.getElementById('step-num-' + i);
-    var label = document.getElementById('step-label-' + i);
-    if (!num) return;
+    var numEl   = document.getElementById('step-num-' + i);
+    var labelEl = document.getElementById('step-label-' + i);
+    if (!numEl) return;
+
     if (i < active) {
-      num.className   = 'w-8 h-8 rounded-full bg-primary/30 text-primary flex items-center justify-center font-label-caps text-label-caps';
-      label.className = 'font-label-caps text-label-caps text-primary/60';
+      /* Completed — solid primary + check icon */
+      numEl.className = 'w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center text-sm';
+      numEl.innerHTML = '<span class="material-symbols-outlined text-sm" style="font-variation-settings:\&quot;FILL\&quot; 1;">check</span>';
+      labelEl.className = 'font-label-caps text-label-caps text-outline';
     } else if (i === active) {
-      num.className   = 'w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center font-label-caps text-label-caps';
-      label.className = 'font-label-caps text-label-caps text-primary';
+      /* Active — primary ring, number */
+      numEl.className = 'w-8 h-8 rounded-full bg-primary text-on-primary flex items-center justify-center text-sm font-bold border-4 border-primary-fixed';
+      numEl.innerHTML = String(i);
+      labelEl.className = 'font-label-caps text-label-caps text-primary font-bold';
     } else {
-      num.className   = 'w-8 h-8 rounded-full border border-outline text-outline flex items-center justify-center font-label-caps text-label-caps';
-      label.className = 'font-label-caps text-label-caps text-outline';
+      /* Pending — outline */
+      numEl.className = 'w-8 h-8 rounded-full border border-outline text-outline bg-background flex items-center justify-center text-sm font-bold';
+      numEl.innerHTML = String(i);
+      labelEl.className = 'font-label-caps text-label-caps text-outline';
     }
   });
 }
 
-// Step 1 dot is not in the loop (static in HTML), handle separately
 document.addEventListener('DOMContentLoaded', function() {
   updateStepIndicator(1);
 });
@@ -740,34 +743,187 @@ function closeFlightStatus() {
   document.body.style.overflow = '';
 }
 document.addEventListener('keydown', function(e) {
-  if (e.key === 'Escape') closeFlightStatus();
+  if (e.key === 'Escape') { closeFlightStatus(); closeSignIn(); }
 });
 
+/* ── Locate flight by PNR ──────────────────────────────────────────────────── */
+async function locateFlight() {
+  var locator  = (document.getElementById('ci-locator').value  || '').trim().toUpperCase();
+  var cpfRaw = (document.getElementById('ci-cpf').value || '').trim();
+  var cpf    = cpfRaw.replace(/[^0-9]/g, '');
+  var errEl  = document.getElementById('ci-error');
+  var btn    = document.getElementById('ci-locate-btn');
+
+  errEl.classList.add('hidden');
+
+  if (!locator)       { showCiError('Please enter your booking reference.'); return; }
+  if (cpf.length !== 11) { showCiError('Please enter a valid CPF (11 digits).'); return; }
+
+  btn.disabled = true;
+  btn.textContent = 'Locating...';
+
+  try {
+    var res  = await fetch('http://localhost:8080/api/bookings/' + locator);
+    var data = await res.json();
+
+    if (!data.success || !data.data) {
+      showCiError('Booking not found. Check the locator (e.g. VOOABC123) — not the flight number.');
+      return;
+    }
+
+    var b = data.data;
+
+    /* Validate CPF — only if booking has CPF stored */
+    var bookingCpf = (b.passenger && b.passenger.cpf) ? b.passenger.cpf.replace(/[^0-9]/g, '') : '';
+    if (bookingCpf && cpf && cpf !== bookingCpf) {
+      showCiError('CPF does not match this booking. Please try again.');
+      return;
+    }
+
+    fillCheckIn(b);
+    goToStep(2);
+
+  } catch (e) {
+    showCiError('Could not connect to server. Is the backend running?');
+  } finally {
+    btn.disabled = false;
+    btn.textContent = 'Continue to passenger details';
+  }
+}
+
+function maskCpfCI(el) {
+  var v = el.value.replace(/[^0-9]/g, '');
+  if (v.length > 3)  v = v.slice(0,3) + '.' + v.slice(3);
+  if (v.length > 7)  v = v.slice(0,7) + '.' + v.slice(7);
+  if (v.length > 11) v = v.slice(0,11) + '-' + v.slice(11);
+  el.value = v.slice(0, 14);
+}
+
+function showCiError(msg) {
+  var el = document.getElementById('ci-error');
+  el.textContent = msg;
+  el.classList.remove('hidden');
+}
+
+/* ── Fill tab-2 and tab-3 with real booking data ───────────────────────────── */
+var CITY_CI = {
+  JFK:'New York, US',  BOS:'Boston, US',       YEG:'Edmonton, CA',
+  YYZ:'Toronto, CA',   LHR:'London, UK',        AUH:'Abu Dhabi, AE',
+  DXB:'Dubai, AE',     SYD:'Sydney, AU',         WLG:'Wellington, NZ',
+  GIG:'Rio de Janeiro, BR', REC:'Recife, BR',   KEF:'Reykjavík, IS'
+};
+var CLASS_CI = {
+  EXECUTIVE:'First Class', PREMIUM_ECONOMY:'Business Plus', ECONOMY:'Economy'
+};
+var AIRCRAFT_CI = {
+  EXECUTIVE:'Boeing 787-9 Dreamliner',
+  PREMIUM_ECONOMY:'Airbus A320neo',
+  ECONOMY:'Boeing 737-800'
+};
+
+function fillCheckIn(b) {
+  var name       = b.passenger ? b.passenger.name.toUpperCase() : '—';
+  var seat       = b.seat      || '—';
+  var gate       = b.gate      || '—';
+  var flightNum  = b.flightNum || '—';
+  var origin     = b.origin    || '—';
+  var dest       = b.destination || '—';
+  var cls        = CLASS_CI[b.flightClass]    || b.flightClass;
+  var aircraft   = AIRCRAFT_CI[b.flightClass] || b.aircraft || '—';
+  var depDate    = formatDateCI(b.depDate);
+  var boarding   = b.boarding  || '—';
+  var locator    = b.locator   || '—';
+  var originCity = CITY_CI[origin] || origin;
+  var destCity   = CITY_CI[dest]   || dest;
+
+  /* ─ TAB 2 ─ */
+  setCI('ci2-name',       name);
+  setCI('ci2-seat',       seat);
+  setCI('ci2-class',      cls);
+  setCI('ci2-aircraft',   aircraft);
+  setCI('ci2-flight',     flightNum);
+  setCI('ci2-flightnum',  flightNum);
+  setCI('ci2-origin',     origin);
+  setCI('ci2-origincity', originCity.split(',')[0]);
+  setCI('ci2-deptime',    b.departure || boarding || '—');
+  setCI('ci2-dest',       dest);
+  setCI('ci2-destcity',   destCity.split(',')[0]);
+  setCI('ci2-daterow',    depDate);
+  setCI('ci2-date-bp',    depDate);
+  setCI('ci2-classrow',   cls);
+  setCI('ci2-aircraftrow', aircraft);
+  setCI('ci2-seatrow',    seat);
+
+  /* ─ TAB 3 (Boarding Pass) ─ */
+  setCI('ci3-class',      cls.toUpperCase());
+  setCI('ci3-flight',     flightNum);
+  setCI('ci3-date',       depDate);
+  setCI('ci3-origin',     origin);
+  setCI('ci3-origincity', originCity);
+  setCI('ci3-successmsg', 'Your journey with vOO is confirmed. You are ready to fly from ' + originCity.split(',')[0] + ' to ' + destCity.split(',')[0] + '.');
+  setCI('ci3-dest',       dest);
+  setCI('ci3-destcity',   destCity);
+  setCI('ci3-passenger',  name);
+  setCI('ci3-seat',       seat);
+  setCI('ci3-gate',       gate);
+  setCI('ci3-boarding',   boarding);
+  setCI('ci3-locator',    locator);
+  setCI('ci3-aircraft',   aircraft);
+
+  /* Store locator for completeFlight() */
+  window._currentBooking = b;
+}
+
+function setCI(id, val) {
+  var el = document.getElementById(id);
+  if (el && val) el.textContent = val;
+}
+
+function formatDateCI(dateStr) {
+  if (!dateStr) return '—';
+  var d = new Date(dateStr + 'T12:00:00');
+  return d.toLocaleDateString('en-GB', { day:'2-digit', month:'short', year:'numeric' });
+}
+
 /* ── Complete Flight: save to localStorage for Travel History ── */
-function completeFlight() {
+async function completeFlight() {
+  var b = window._currentBooking || {};
+  var locator = b.locator || document.getElementById('ci3-locator').textContent.trim();
+
   var booking = {
-    locator:     'VQ7X9R',
-    flightNum:   'VO 482',
-    origin:      'LHR',
-    destination: 'JFK',
-    depDate:     '2024-10-24',
-    flightClass: 'PREMIUM_ECONOMY',
-    seat:        '12A',
-    gate:        'B34',
+    locator:     locator,
+    flightNum:   b.flightNum   || '—',
+    origin:      b.origin      || '—',
+    destination: b.destination || '—',
+    depDate:     b.depDate     || null,
+    flightClass: b.flightClass || 'ECONOMY',
+    seat:        b.seat        || '—',
+    gate:        b.gate        || '—',
     status:      'COMPLETED',
-    passenger:   { name: 'Johnathan Doe' },
+    passenger:   b.passenger   || {},
     completedAt: new Date().toISOString()
   };
 
+  var btn = event.currentTarget;
+  btn.disabled = true;
+  btn.textContent = 'Saving...';
+
+  /* 1. Save to localStorage so my-trips can override the API status */
   try {
     var history = JSON.parse(localStorage.getItem('voo_completed_flights') || '[]');
-    var exists = history.some(function(b) { return b.locator === booking.locator; });
-    if (!exists) history.push(booking);
+    var idx = history.findIndex(function(x) { return x.locator === locator; });
+    if (idx !== -1) history[idx] = booking;
+    else history.push(booking);
     localStorage.setItem('voo_completed_flights', JSON.stringify(history));
   } catch(e) {}
 
-  var btn = event.currentTarget;
-  btn.disabled = true;
+  /* 2. Try to mark as completed on the backend too */
+  try {
+    await fetch('http://localhost:8080/api/bookings/' + locator + '/complete', {
+      method: 'PATCH'
+    });
+  } catch(e) { /* backend endpoint optional — localStorage is source of truth */ }
+
   btn.textContent = 'Saved to History!';
   btn.style.background = '#2e7d32';
 
@@ -777,5 +933,66 @@ function completeFlight() {
 </script>
 
 
+<!-- ── Sign In PiP ──────────────────────────────────────────────────────────── -->
+<div id="pip-signin" class="fixed inset-0 z-[70] bg-black/30 backdrop-blur-sm flex items-start justify-end p-6 hidden" onclick="if(event.target===this)closeSignIn()">
+  <div class="bg-surface-container-lowest border border-outline-variant shadow-[0px_40px_100px_rgba(0,0,0,0.18)] rounded-xl w-full max-w-sm flex flex-col overflow-hidden" style="margin-top:5rem;" onclick="event.stopPropagation()">
+    <!-- Header -->
+    <div class="flex justify-between items-center px-8 py-5 border-b border-outline-variant bg-white">
+      <div class="flex items-center gap-3">
+        <div class="text-xl font-black tracking-tighter"><span style="color:#a26309;">v</span><span style="color:#585858;">OO</span></div>
+        <span class="font-label-caps text-label-caps text-secondary">ACCOUNT</span>
+      </div>
+      <button onclick="closeSignIn()" class="material-symbols-outlined text-slate-500 hover:text-slate-800 transition-colors bg-transparent border-none cursor-pointer text-base">close</button>
+    </div>
+    <!-- Body -->
+    <div class="px-8 py-8 space-y-5">
+      <div class="space-y-1">
+        <label class="font-label-caps text-label-caps text-outline block">EMAIL</label>
+        <input type="email" placeholder="your@email.com"
+          class="w-full border-b border-outline-variant bg-transparent py-2 font-body-base text-body-base focus:border-primary focus:ring-0 outline-none transition-colors placeholder:text-surface-dim"/>
+      </div>
+      <div class="space-y-1">
+        <label class="font-label-caps text-label-caps text-outline block">PASSWORD</label>
+        <input type="password" placeholder="••••••••"
+          class="w-full border-b border-outline-variant bg-transparent py-2 font-body-base text-body-base focus:border-primary focus:ring-0 outline-none transition-colors placeholder:text-surface-dim"/>
+      </div>
+      <div class="flex justify-end">
+        <a href="#" class="font-label-caps text-label-caps text-primary hover:underline">Forgot password?</a>
+      </div>
+      <button class="w-full bg-primary text-on-primary py-4 font-manrope font-bold uppercase tracking-widest text-sm hover:brightness-110 active:scale-[0.98] transition-all rounded-lg">
+        Sign In
+      </button>
+      <div class="flex items-center gap-4">
+        <div class="h-px flex-1 bg-outline-variant"></div>
+        <span class="font-label-caps text-label-caps text-outline">OR</span>
+        <div class="h-px flex-1 bg-outline-variant"></div>
+      </div>
+      <button class="w-full border border-outline-variant py-4 font-manrope font-semibold text-sm hover:bg-surface-container transition-colors rounded-lg flex items-center justify-center gap-3">
+        <svg width="18" height="18" viewBox="0 0 18 18"><path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.716v2.259h2.908c1.702-1.567 2.684-3.875 2.684-6.615z" fill="#4285F4"/><path d="M9 18c2.43 0 4.467-.806 5.956-2.184l-2.908-2.259c-.806.54-1.837.86-3.048.86-2.344 0-4.328-1.584-5.036-3.711H.957v2.332C2.438 15.983 5.482 18 9 18z" fill="#34A853"/><path d="M3.964 10.706A5.41 5.41 0 0 1 3.682 9c0-.593.102-1.17.282-1.706V4.962H.957A8.996 8.996 0 0 0 0 9c0 1.452.348 2.827.957 4.038l3.007-2.332z" fill="#FBBC05"/><path d="M9 3.583c1.321 0 2.508.454 3.44 1.345l2.582-2.58C13.463.891 11.426 0 9 0 5.482 0 2.438 2.017.957 4.962L3.964 6.294C4.672 4.167 6.656 3.583 9 3.583z" fill="#EA4335"/></svg>
+        Continue with Google
+      </button>
+      <p class="text-center font-body-sm text-secondary text-sm">
+        Don't have an account?
+        <a href="#" class="text-primary font-semibold hover:underline ml-1">Create one</a>
+      </p>
+    </div>
+  </div>
+</div>
+
+<script>
+function openSignIn() {
+  document.getElementById('pip-signin').classList.remove('hidden');
+  document.body.style.overflow = 'hidden';
+}
+function closeSignIn() {
+  document.getElementById('pip-signin').classList.add('hidden');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    closeSignIn();
+  }
+});
+</script>
 </body>
 </html>
