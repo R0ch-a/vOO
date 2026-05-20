@@ -1,7 +1,8 @@
-# vOO Airline — Simulador
-<img width="2209" height="1887" alt="Captura de tela 2026-05-20 012315" src="https://github.com/user-attachments/assets/954c2e8f-014b-47b3-a00c-ce8808a72205" />
-<img width="2201" height="2016" alt="Captura de tela 2026-05-20 012256" src="https://github.com/user-attachments/assets/67380317-af53-414e-ac83-74b104f6e61d" />
-API REST da companhia aérea vOO, desenvolvida como projeto acadêmico de **Programação Orientada a Objetos** com Java 21 e Spring Boot 3.
+# vOO Airways — Sistema de Reservas e Check-in
+
+<img width="2160" height="3840" alt="image" src="https://github.com/user-attachments/assets/0c64d172-bd69-4522-837c-d9069aeda5b5" />
+
+Sistema web completo de reservas e check-in de passagens aéreas, desenvolvido como projeto de **Programação Orientada a Objetos** com Java 17 e Spring Boot 3. O backend serve também o frontend HTML/CSS/JS, sem necessidade de servidor separado.
 
 ---
 
@@ -9,23 +10,22 @@ API REST da companhia aérea vOO, desenvolvida como projeto acadêmico de **Prog
 
 | Tecnologia | Versão | Função |
 |---|---|---|
-| Java | 21 | Linguagem principal |
+| Java | 17 | Linguagem principal |
 | Spring Boot | 3.3.0 | Framework web e IoC |
 | Spring Data JPA | 3.3.0 | Abstração de persistência |
-| Hibernate | 6.x | ORM (mapeamento objeto-relacional) |
+| Hibernate | 6.x | ORM com suporte a ENUMs nativos do PostgreSQL |
 | PostgreSQL | 14+ | Banco de dados relacional |
 | Flyway | 10.x | Migrations versionadas do banco |
 | Lombok | latest | Redução de boilerplate |
 | SpringDoc OpenAPI | 2.5.0 | Documentação Swagger automática |
-| JUnit 5 + Mockito | 5.x | Testes unitários |
-| H2 | latest | Banco em memória para testes |
+| JUnit 5 + Mockito | 5.x | Testes unitários e de camada web |
 | Maven | 3.9+ | Gerenciamento de dependências e build |
 
 ---
 
 ## Pré-requisitos
 
-- JDK 21 ou superior
+- JDK 17 ou superior
 - Maven 3.9+
 - PostgreSQL 14+ rodando localmente
 
@@ -52,13 +52,16 @@ spring.datasource.password=SUA_SENHA
 **3. Compilar e executar**
 
 ```bash
-# Executar direto pelo Maven
-mvn spring-boot:run
-
-# Ou gerar o JAR e executar
-mvn clean package -DskipTests
-java -jar target/airline-1.0.0.jar
+mvn spring-boot:run "-Dmaven.test.skip=true"
 ```
+
+Após iniciar, acesse:
+
+- **Frontend:** http://localhost:8080
+- **API:** http://localhost:8080/api/bookings
+- **Swagger UI:** http://localhost:8080/swagger-ui.html
+
+O Flyway cria todas as tabelas automaticamente na primeira execução.
 
 **4. Rodar os testes**
 
@@ -66,14 +69,19 @@ java -jar target/airline-1.0.0.jar
 mvn test
 ```
 
-A API estará disponível em `http://localhost:8080`.  
-O Flyway cria todas as tabelas automaticamente na primeira execução.
+---
+
+## Páginas do Frontend
+
+| Arquivo | Rota | Descrição |
+|---------|------|-----------|
+| `index.html` | `/` | Booking flow: busca de voos, seleção de classe/assento, pagamento e boarding pass |
+| `my-trips.html` | `/my-trips.html` | Histórico de viagens por CPF com PiPs de boarding pass e gerenciamento |
+| `check-in.html` | `/check-in.html` | Check-in em 3 etapas: localizar voo, confirmar assento, boarding pass |
 
 ---
 
 ## Documentação interativa (Swagger)
-
-Com a aplicação rodando, acesse:
 
 ```
 http://localhost:8080/swagger-ui.html
@@ -98,7 +106,7 @@ src/main/java/com/voo/airline/
 │   ├── PassengerController.java        ← /api/passengers
 │   └── HealthController.java           ← /api/health
 │
-├── service/                            ← Camada de negócio do MVC
+├── service/                            ← Camada de negócio
 │   ├── BookingService.java             ← Interface
 │   ├── PassengerService.java           ← Interface
 │   └── impl/
@@ -141,9 +149,9 @@ src/main/java/com/voo/airline/
 ├── strategy/pricing/                   ← Padrão Strategy
 │   ├── PriceStrategy.java              ← Interface da estratégia
 │   ├── AbstractPriceStrategy.java      ← Classe abstrata com Template Method
-│   ├── EconomyPriceStrategy.java       ← Tarifa Economy (R$ 350)
-│   ├── PremiumEconomyPriceStrategy.java← Tarifa Premium Economy (R$ 750)
-│   └── ExecutivePriceStrategy.java     ← Tarifa Executiva (R$ 1.800)
+│   ├── EconomyPriceStrategy.java       ← Tarifa Economy (R$ 320)
+│   ├── PremiumEconomyPriceStrategy.java← Tarifa Premium Economy (R$ 980)
+│   └── ExecutivePriceStrategy.java     ← Tarifa Executiva (R$ 1.240)
 │
 ├── factory/                            ← Padrão Factory
 │   ├── PriceStrategyFactory.java       ← Resolve a Strategy pelo FlightClass
@@ -167,17 +175,13 @@ src/main/java/com/voo/airline/
     └── BookingMapper.java              ← Converte entity ↔ DTO
 
 src/test/java/com/voo/airline/
-├── BookingServiceTest.java             ← Testes legados do service
-├── factory/
-│   ├── PaymentFactoryTest.java         ← Testa PaymentFactory
-│   └── PriceStrategyFactoryTest.java   ← Testa PriceStrategyFactory
-├── service/
-│   ├── BookingEntityTest.java          ← Testa encapsulamento das entidades
-│   └── BookingServiceImplTest.java     ← Testa orquestração do Service
-├── strategy/
-│   └── PriceStrategyTest.java          ← Testa as três strategies e o Template Method
-└── validator/
-    └── BookingValidatorChainTest.java  ← Testa a cadeia de validação
+├── entity/
+│   ├── BookingTest.java                ← cancel(), complete(), isCancellable(), create()
+│   └── PassengerTest.java              ← of(), updateContactInfo(), imutabilidade
+├── service/impl/
+│   └── BookingServiceImplTest.java     ← Orquestração com Mockito (13 testes)
+└── controller/
+    └── BookingControllerTest.java      ← 5 endpoints via MockMvc (9 testes)
 ```
 
 ---
@@ -186,297 +190,157 @@ src/test/java/com/voo/airline/
 
 ### MVC (Model-View-Controller)
 
-A divisão de responsabilidades segue o padrão MVC adaptado para APIs REST:
+- **Model** — pacote `entity/`: `Booking`, `Passenger` e `Payment` representam o domínio sem lógica HTTP nem SQL.
+- **Controller** — pacote `controller/`: recebe requisições HTTP, delega ao Service e devolve a resposta.
+- **Service** — orquestra a lógica de negócio, repositórios e padrões de projeto.
 
-- **Model** — pacote `entity/`: as classes `Booking`, `Passenger` e `Payment` representam o domínio. Não contêm lógica HTTP nem SQL.
-- **Controller** — pacote `controller/`: recebe a requisição HTTP, delega ao Service e devolve a resposta. Não contém regras de negócio.
-- **Service** — atua como a camada intermediária que orquestra a lógica de negócio, os repositórios e os demais padrões.
-
-O pacote `dto/` separa os contratos da API (o que entra e o que sai) dos objetos de domínio, evitando que mudanças internas quebrem o contrato com o frontend.
+O pacote `dto/` separa os contratos da API dos objetos de domínio, evitando que mudanças internas quebrem o contrato com o frontend.
 
 ### Strategy
 
 **Onde:** `strategy/pricing/`
 
-**Problema resolvido:** o cálculo de preço muda conforme a classe da cabine. Sem Strategy, o Service teria um bloco `if/else` ou `switch` que cresceria a cada nova classe, violando o princípio Aberto/Fechado.
-
-**Como funciona:** a interface `PriceStrategy` define o contrato `calculate(FlightType, int)`. Cada classe de cabine tem sua própria implementação:
+O cálculo de preço varia por classe de cabine. A interface `PriceStrategy` define o contrato `calculate(FlightType, int)`:
 
 ```
 PriceStrategy (interface)
     └── AbstractPriceStrategy (abstract) ← Template Method aqui
-            ├── EconomyPriceStrategy         R$ 350 base
-            ├── PremiumEconomyPriceStrategy  R$ 750 base
-            └── ExecutivePriceStrategy       R$ 1.800 base, multiplier 1.8x
+            ├── EconomyPriceStrategy         R$ 320 base
+            ├── PremiumEconomyPriceStrategy  R$ 980 base
+            └── ExecutivePriceStrategy       R$ 1.240 base
 ```
-
-O `BookingServiceImpl` nunca sabe qual implementação está usando — recebe sempre `PriceStrategy` e chama `calculate()`. Isso é polimorfismo em ação.
 
 ### Template Method
 
 **Onde:** `AbstractPriceStrategy` e `AbstractBookingValidator`
 
-**Problema resolvido:** o algoritmo geral é sempre o mesmo, mas alguns passos variam entre subclasses.
+Em `AbstractPriceStrategy`, o método `calculate()` é `final` e define o esqueleto do algoritmo. As subclasses implementam apenas `getBasePrice()` (abstrato) e podem sobrescrever hooks como `getRoundTripMultiplier()`.
 
-**Em `AbstractPriceStrategy`:** o método `calculate()` é `final` e define o esqueleto:
-1. Obtém o preço base da subclasse (`getBasePrice()` — abstrato)
-2. Aplica o multiplicador de roundtrip (`getRoundTripMultiplier()` — hook, pode ser sobrescrito)
-3. Multiplica pelos passageiros
-4. Aplica desconto de grupo (`applyGroupDiscount()` — hook, pode ser sobrescrito)
-
-A `ExecutivePriceStrategy` sobrescreve os dois hooks: usa multiplicador `1.8x` em vez de `2x` na volta, e desabilita o desconto de grupo.
-
-**Em `AbstractBookingValidator`:** o método `validate()` é `final` e executa `doValidate()` (abstrato, implementado pela subclasse) e depois passa para o próximo da cadeia automaticamente.
+Em `AbstractBookingValidator`, o método `validate()` é `final` e executa `doValidate()` (implementado pela subclasse) e passa para o próximo da cadeia automaticamente.
 
 ### Factory
 
-**Onde:** `factory/PriceStrategyFactory.java` e `factory/PaymentFactory.java`
+**Onde:** `factory/`
 
-**`PriceStrategyFactory`:** recebe um `FlightClass` e retorna a `PriceStrategy` concreta correspondente. O Service nunca instancia strategies diretamente — a fábrica centraliza essa decisão. O Spring injeta automaticamente o mapa de beans `Map<String, PriceStrategy>`.
-
-**`PaymentFactory`:** cria instâncias de `Payment` aplicando validações de negócio antes da criação (ex: Boleto exige valor mínimo de R$ 50). Centraliza a lógica de criação num único ponto.
+- **PriceStrategyFactory:** recebe um `FlightClass` e retorna a `PriceStrategy` concreta. O Spring injeta automaticamente o mapa de beans `Map<String, PriceStrategy>`.
+- **PaymentFactory:** cria instâncias de `Payment` com validações de negócio antes da criação.
 
 ### Observer
 
-**Onde:** `observer/event/` e `observer/listener/`
+**Onde:** `observer/`
 
-**Problema resolvido:** quando uma reserva é criada ou cancelada, outras partes do sistema precisam reagir (notificações, auditoria, integração com sistemas externos). Acoplar essas responsabilidades ao Service tornaria o código frágil e difícil de estender.
-
-**Como funciona:** o `BookingServiceImpl` publica eventos via `ApplicationEventPublisher` do Spring:
+O `BookingServiceImpl` publica eventos via `ApplicationEventPublisher`:
 
 ```java
 eventPublisher.publishEvent(new BookingCreatedEvent(this, booking));
 ```
 
-O `BookingNotificationListener` escuta esses eventos com `@EventListener` e reage de forma **assíncrona** (`@Async`), sem bloquear a resposta HTTP. O Service não sabe que o Listener existe — é o Spring que gerencia o acoplamento.
+O `BookingNotificationListener` escuta com `@EventListener` e reage de forma **assíncrona** (`@Async`), sem bloquear a resposta HTTP.
 
 ### Chain of Responsibility
 
 **Onde:** `validator/`
 
-**Problema resolvido:** existem múltiplas regras de validação para uma reserva. Colocá-las todas no Service cria um método longo e difícil de manter. Adicionar uma nova regra exige mexer no Service.
-
-**Como funciona:** cada validador estende `AbstractBookingValidator` e implementa apenas sua regra específica. A cadeia é montada em `BookingValidatorChain` e disparada com uma única chamada:
+Cada validador implementa apenas sua regra. A cadeia é:
 
 ```
 RouteValidator → RoundTripDateValidator → SeatAvailabilityValidator
 ```
 
-Se qualquer validador lançar `BusinessException`, a cadeia para imediatamente. O Service chama apenas `validatorChain.validateAll(request)`.
+O Service chama apenas `validatorChain.validateAll(request)`.
 
 ---
 
 ## Conceitos de Orientação a Objetos
 
-### Herança
-
-`AbstractEntity` é a superclasse de todas as entidades JPA. Centraliza `id`, `createdAt` e `updatedAt`, além de uma implementação correta de `equals()` e `hashCode()` para o contexto JPA (comparação por id persistido).
-
-`AbstractPriceStrategy` é a superclasse de todas as strategies de preço. Implementa o Template Method e herda `PriceStrategy`.
-
-`AbstractBookingValidator` é a superclasse de todos os validadores. Define a cadeia de responsabilidade e o esqueleto de validação.
-
 ### Encapsulamento
 
-As entidades `Booking`, `Passenger` e `Payment` têm construtores `protected` — o JPA os usa internamente, mas o código de aplicação nunca pode chamar `new Booking()` diretamente. A criação de objetos válidos passa obrigatoriamente pelos factory methods estáticos:
+As entidades têm construtores `protected` — criação sempre via factory methods estáticos:
 
 - `Passenger.of(...)` — valida que o nome não é vazio
 - `Booking.create(...)` — sempre inicia com status `CONFIRMED`
 - `Payment.of(...)` — sempre inicia com status `PENDING`
 
-O status de `Booking` só muda por métodos de negócio que guardam as invariantes do domínio:
+O status de `Booking` só muda por métodos de negócio:
 
 ```java
 booking.cancel();    // valida que não está já cancelada
-booking.complete();  // valida que está CONFIRMED antes de completar
+booking.complete();  // valida que está CONFIRMED antes de concluir
 ```
 
-As listas internas (`bookings` em `Passenger`, `payments` em `Booking`) são expostas como cópias imutáveis via `Collections.unmodifiableList()`, impedindo que código externo modifique o estado interno das entidades.
+As listas internas são expostas como cópias imutáveis via `Collections.unmodifiableList()`.
 
-### Polimorfismo
+### Herança
 
-O `BookingServiceImpl` recebe uma `PriceStrategy` da factory e chama `calculate()`. Não sabe — e não precisa saber — se é `EconomyPriceStrategy` ou `ExecutivePriceStrategy`. O comportamento correto é resolvido em tempo de execução.
+- `AbstractEntity` — superclasse de todas as entidades JPA: centraliza `id`, `createdAt`, `updatedAt`, `equals()` e `hashCode()`.
+- `AbstractPriceStrategy` — superclasse das strategies, implementa Template Method.
+- `AbstractBookingValidator` — superclasse dos validadores, define a cadeia.
 
-Da mesma forma, o `BookingValidatorChain` chama `validate()` em cada `AbstractBookingValidator` sem conhecer a implementação concreta.
+### Polimorfismo e Abstração
 
-### Abstração
-
-As interfaces `PriceStrategy`, `BookingService` e `PassengerService` definem contratos sem expor implementação. O código cliente depende sempre da interface, nunca da classe concreta — facilitando substituição, teste e extensão.
-
----
-
-## Banco de Dados
-
-O Flyway gerencia as migrações automaticamente. O arquivo `V1__create_initial_tables.sql` cria todas as tabelas e tipos ENUM nativos do PostgreSQL na primeira execução.
-
-### Esquema
-
-**passengers**
-
-| Coluna | Tipo | Descrição |
-|--------|------|-----------|
-| id | BIGSERIAL PK | Identificador |
-| name | VARCHAR(255) | Nome completo |
-| email | VARCHAR(255) | E-mail |
-| phone | VARCHAR(30) | Telefone |
-| cpf | VARCHAR(20) | CPF (apenas dígitos) |
-| birth_date | DATE | Data de nascimento |
-| doc_type | ENUM | CPF / RG / PASSPORT |
-| doc_number | VARCHAR(60) | Número do documento |
-| created_at | TIMESTAMP | Criação automática |
-| updated_at | TIMESTAMP | Atualização automática |
-
-**bookings**
-
-| Coluna | Tipo | Descrição |
-|--------|------|-----------|
-| id | BIGSERIAL PK | Identificador |
-| locator | VARCHAR(20) UNIQUE | Localizador (ex: VOOABC123) |
-| flight_num | VARCHAR(20) | Número do voo (ex: VO1234) |
-| origin | VARCHAR(10) | Código IATA de origem |
-| destination | VARCHAR(10) | Código IATA de destino |
-| dep_date | DATE | Data de ida |
-| ret_date | DATE | Data de volta (nullable) |
-| flight_type | ENUM | ONEWAY / ROUNDTRIP |
-| flight_class | ENUM | ECONOMY / PREMIUM_ECONOMY / EXECUTIVE |
-| seat | VARCHAR(10) | Poltrona (ex: 12A) |
-| gate | VARCHAR(10) | Portão de embarque |
-| aircraft | VARCHAR(100) | Nome da aeronave |
-| departure | VARCHAR(10) | Horário de partida |
-| boarding | VARCHAR(10) | Horário de embarque |
-| total_price | NUMERIC(10,2) | Preço total calculado |
-| status | ENUM | PENDING / CONFIRMED / CANCELLED / COMPLETED |
-| passenger_id | BIGINT FK | Referência ao passageiro |
-| created_at | TIMESTAMP | Criação automática |
-| updated_at | TIMESTAMP | Atualização automática |
-
-**payments**
-
-| Coluna | Tipo | Descrição |
-|--------|------|-----------|
-| id | BIGSERIAL PK | Identificador |
-| booking_id | BIGINT FK | Referência à reserva |
-| method | ENUM | CREDIT_CARD / DEBIT_CARD / PIX / BOLETO |
-| amount | NUMERIC(10,2) | Valor cobrado |
-| status | ENUM | PENDING / PAID / REFUNDED / FAILED |
-| paid_at | TIMESTAMP | Momento do pagamento (nullable) |
-| created_at | TIMESTAMP | Criação automática |
-| updated_at | TIMESTAMP | Atualização automática |
+O `BookingServiceImpl` opera sobre `PriceStrategy` e `AbstractBookingValidator` sem conhecer as implementações concretas. O comportamento correto é resolvido em tempo de execução.
 
 ---
 
 ## API REST
 
-Todas as respostas seguem o envelope padrão `ApiResponse<T>`:
+Todas as respostas seguem o envelope `ApiResponse<T>`:
 
 ```json
 {
   "success": true,
   "message": "Reserva criada com sucesso!",
   "data": { ... },
-  "timestamp": "2025-08-01T14:30:00"
-}
-```
-
-Em caso de erro:
-
-```json
-{
-  "success": false,
-  "error": "Descrição do problema",
-  "timestamp": "2025-08-01T14:30:00"
+  "timestamp": "2026-05-20T10:00:00"
 }
 ```
 
 ### Reservas — `/api/bookings`
 
-**POST `/api/bookings`** — Criar reserva
-
-Request body:
-```json
-{
-  "flightNum":    "VO1234",
-  "origin":       "GRU",
-  "destination":  "SSA",
-  "depDate":      "2025-08-15",
-  "flightType":   "ONEWAY",
-  "flightClass":  "ECONOMY",
-  "seat":         "12A",
-  "gate":         "B3",
-  "aircraft":     "Boeing 737-800",
-  "departure":    "14:30",
-  "boarding":     "14:00",
-  "payMethod":    "PIX",
-  "passengerData": {
-    "name":      "Ana Carolina Souza",
-    "email":     "ana@email.com",
-    "phone":     "(79) 99999-9999",
-    "cpf":       "12345678900",
-    "birthDate": "1995-05-15",
-    "docType":   "CPF",
-    "docNumber": "12345678900"
-  }
-}
-```
-
-Response `201 Created`:
-```json
-{
-  "success": true,
-  "message": "Reserva criada com sucesso!",
-  "data": {
-    "id": 1,
-    "locator": "VOOXYZ789",
-    "flightNum": "VO1234",
-    "origin": "GRU",
-    "destination": "SSA",
-    "depDate": "2025-08-15",
-    "flightType": "ONEWAY",
-    "flightClass": "ECONOMY",
-    "seat": "12A",
-    "gate": "B3",
-    "aircraft": "Boeing 737-800",
-    "departure": "14:30",
-    "boarding": "14:00",
-    "totalPrice": 350.00,
-    "status": "CONFIRMED",
-    "passenger": {
-      "id": 1,
-      "name": "Ana Carolina Souza",
-      "email": "ana@email.com",
-      "cpf": "12345678900"
-    },
-    "createdAt": "2025-08-01T10:00:00"
-  },
-  "timestamp": "2025-08-01T10:00:00"
-}
-```
-
-**GET `/api/bookings?page=0&size=20`** — Listar reservas paginado
-
-**GET `/api/bookings/{locator}`** — Buscar pelo localizador (ex: `VOOXYZ789`)
-
-**PATCH `/api/bookings/{locator}/cancel`** — Cancelar reserva
+| Método | Endpoint | Status | Descrição |
+|--------|----------|--------|-----------|
+| `POST` | `/api/bookings` | 201 | Criar nova reserva |
+| `GET` | `/api/bookings/{locator}` | 200 / 404 | Buscar pelo localizador |
+| `GET` | `/api/bookings?page=0&size=20` | 200 | Listar paginado |
+| `PATCH` | `/api/bookings/{locator}/cancel` | 200 / 404 | Cancelar reserva |
+| `PATCH` | `/api/bookings/{locator}/complete` | 200 / 404 | Concluir reserva via check-in |
 
 ### Passageiros — `/api/passengers`
 
-**GET `/api/passengers/{id}`** — Buscar por ID
-
-**GET `/api/passengers/cpf/{cpf}`** — Buscar por CPF
-
-**GET `/api/passengers/cpf/{cpf}/bookings`** — Reservas de um passageiro
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| `GET` | `/api/passengers/cpf/{cpf}/bookings` | Reservas de um passageiro por CPF |
+| `GET` | `/api/passengers/{id}` | Buscar por ID |
 
 ### Health — `/api/health`
 
-**GET `/api/health`** — Status da API e conexão com o banco
+| Método | Endpoint | Descrição |
+|--------|----------|-----------|
+| `GET` | `/api/health` | Status da API e conexão com o banco |
+
+### Exemplo — POST `/api/bookings`
 
 ```json
 {
-  "status": "ok",
-  "service": "vOO Airline API",
-  "version": "1.0.0",
-  "db": "connected",
-  "timestamp": "2025-08-01T10:00:00"
+  "flightNum":    "VO1234",
+  "origin":       "GIG",
+  "destination":  "LHR",
+  "depDate":      "2026-08-15",
+  "flightType":   "ROUNDTRIP",
+  "flightClass":  "EXECUTIVE",
+  "seat":         "01A",
+  "gate":         "A1",
+  "aircraft":     "Boeing 787-9 Dreamliner",
+  "departure":    "08:00",
+  "boarding":     "07:30",
+  "payMethod":    "CREDIT_CARD",
+  "passengerData": {
+    "name":      "Ana Carolina Souza",
+    "email":     "ana@email.com",
+    "cpf":       "12345678900",
+    "docType":   "PASSPORT",
+    "docNumber": "AB123456"
+  }
 }
 ```
 
@@ -493,66 +357,53 @@ Response `201 Created`:
 
 ## Regras de Negócio
 
-**Localizador único** — gerado no padrão `VOO` + 6 caracteres alfanuméricos (ex: `VOOABC123`). Se o frontend enviar um localizador, ele é aproveitado desde que não esteja em uso.
+**Localizador único** — gerado no padrão `VOO` + 6 caracteres alfanuméricos (ex: `VOOABC123`). O frontend pode sugerir um localizador, mas o backend garante a unicidade.
 
-**Passageiro reutilizado por CPF** — se o CPF já existe no banco, a nova reserva é vinculada ao cadastro existente em vez de criar um registro duplicado.
+**Passageiro reutilizado por CPF** — se o CPF já existe no banco, a nova reserva é vinculada ao cadastro existente.
 
-**Validação de rota** — origem e destino não podem ser o mesmo aeroporto.
+**Preço calculado no backend** — nunca aceito como entrada do frontend:
 
-**Validação de datas** — em voos de ida e volta (`ROUNDTRIP`), a data de retorno é obrigatória e deve ser posterior à data de ida.
+| Classe | Preço base |
+|--------|-----------|
+| Economy (Standard) | R$ 320 |
+| Premium Economy (Business Plus) | R$ 980 |
+| Executive (First Class) | R$ 1.240 |
 
-**Validação de assento** — o sistema verifica se o assento já está ocupado para a mesma rota e data antes de confirmar.
-
-**Preço calculado no backend** — o preço nunca é aceito como entrada do frontend. É calculado pela `PriceStrategy` correspondente à classe escolhida:
-
-| Classe | Preço base | Ida e volta | Desconto de grupo (3+ pax) |
-|--------|-----------|-------------|---------------------------|
-| Economy | R$ 350 | × 2 | 5% sobre o total |
-| Premium Economy | R$ 750 | × 2 | 5% sobre o total |
-| Executiva | R$ 1.800 | × 1,8 (10% off na volta) | Sem desconto de grupo |
-
-**Transições de status da reserva:**
+**Transições de status:**
 
 ```
 PENDING → CONFIRMED → COMPLETED
                    ↘ CANCELLED
 ```
 
-Uma reserva cancelada não pode ser reativada nem concluída. Tentar cancelar uma reserva já cancelada lança erro.
+Uma reserva cancelada não pode ser reativada nem concluída.
+
+---
+
+## Banco de Dados
+
+O Flyway executa `V1__create_initial_tables.sql` automaticamente na primeira inicialização, criando as tabelas e os tipos ENUM nativos do PostgreSQL.
+
+**passengers:** `id`, `name`, `email`, `phone`, `cpf`, `birth_date`, `doc_type`, `doc_number`, `created_at`, `updated_at`
+
+**bookings:** `id`, `locator` (UNIQUE), `flight_num`, `origin`, `destination`, `dep_date`, `ret_date`, `flight_type`, `flight_class`, `seat`, `gate`, `aircraft`, `departure`, `boarding`, `total_price`, `status`, `passenger_id` (FK), `created_at`, `updated_at`
+
+**payments:** `id`, `booking_id` (FK), `method`, `amount`, `status`, `paid_at`, `created_at`, `updated_at`
 
 ---
 
 ## Testes
 
-São 6 classes de teste cobrindo cada camada e padrão de projeto individualmente, sem dependência do banco de dados (Mockito + H2).
+90 testes passando — 0 falhas.
 
-| Classe | O que testa |
-|--------|-------------|
-| `PriceStrategyTest` | As três strategies, Template Method e polimorfismo |
-| `PriceStrategyFactoryTest` | Resolução correta de strategy pelo FlightClass |
-| `BookingValidatorChainTest` | Cada regra da cadeia de validação isolada |
-| `PaymentFactoryTest` | Criação de Payment, validação de Boleto e transições de status |
-| `BookingEntityTest` | Encapsulamento, factory methods e transições de estado das entidades |
-| `BookingServiceImplTest` | Orquestração do Service: verifica que todos os colaboradores são acionados |
-
-Para executar:
+| Classe | Testes | O que cobre |
+|--------|--------|-------------|
+| `BookingTest` | 10 | `cancel()`, `complete()`, `isCancellable()`, `isRoundTrip()`, `Booking.create()` |
+| `PassengerTest` | 7 | `Passenger.of()`, `updateContactInfo()`, imutabilidade de listas |
+| `BookingServiceImplTest` | 13 | Orquestração com Mockito: create, find, cancel, complete e eventos |
+| `BookingControllerTest` | 9 | 5 endpoints via MockMvc: status HTTP, body JSON e 404 handling |
+| Testes existentes | 51 | Strategy, Factory, ValidatorChain, PaymentFactory, entidades |
 
 ```bash
 mvn test
-
-# Relatório de cobertura (se configurado com JaCoCo)
-mvn test jacoco:report
 ```
-
----
-
-## Integração com o Frontend
-
-O frontend (`index.html`) já contém a função `sendToBackend` que chama `POST /api/bookings`. Para conectar ao backend Java, garanta que:
-
-1. O backend está rodando em `http://localhost:8080`
-2. A origem do frontend está na lista de CORS em `application.properties`:
-   ```properties
-   voo.cors.allowed-origins=http://localhost:3000,http://localhost:5500,http://127.0.0.1:5500
-   ```
-3. Os valores dos enums enviados pelo frontend estão no formato correto (letras maiúsculas com underscore, ex: `CREDIT_CARD`, não `credit`)
