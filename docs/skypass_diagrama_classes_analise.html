@@ -1,0 +1,226 @@
+
+<style>
+#dc { font-size: 13px; }
+#dc svg { max-width: 100%; }
+#dc svg .classLabel .label { font-size: 13px !important; }
+</style>
+<div id="dc" style="padding: 0.5rem 0;"></div>
+<script type="module">
+import mermaid from 'https://esm.sh/mermaid@11/dist/mermaid.esm.min.mjs';
+const dark = matchMedia('(prefers-color-scheme: dark)').matches;
+await document.fonts.ready;
+mermaid.initialize({
+  startOnLoad: false,
+  theme: 'base',
+  fontFamily: '"Anthropic Sans", sans-serif',
+  themeVariables: {
+    darkMode: dark,
+    fontSize: '13px',
+    fontFamily: '"Anthropic Sans", sans-serif',
+    lineColor:        dark ? '#9c9a92' : '#73726c',
+    textColor:        dark ? '#c2c0b6' : '#2c2c2a',
+    primaryColor:     dark ? '#1a2a3a' : '#e6f1fb',
+    primaryTextColor: dark ? '#b5d4f4' : '#0c447c',
+    primaryBorderColor: dark ? '#185fa5' : '#185fa5',
+    secondaryColor:   dark ? '#1a2d1e' : '#eaf3de',
+    secondaryTextColor: dark ? '#c0dd97' : '#27500a',
+    secondaryBorderColor: dark ? '#3b6d11' : '#3b6d11',
+    tertiaryColor:    dark ? '#2a1f2a' : '#fbeaf0',
+    tertiaryTextColor: dark ? '#ed93b1' : '#72243e',
+    tertiaryBorderColor: dark ? '#993556' : '#993556',
+    noteBkgColor:     dark ? '#2a2419' : '#faeeda',
+    noteTextColor:    dark ? '#fac775' : '#633806',
+    edgeLabelBackground: dark ? '#1e1e1c' : '#ffffff',
+    clusterBkg:       dark ? '#18180f' : '#f5f5f0',
+    titleColor:       dark ? '#c2c0b6' : '#2c2c2a',
+  },
+  classDiagram: { useMaxWidth: true }
+});
+
+const diagram = `classDiagram
+  direction TB
+
+  class Usuario {
+    -Long id
+    -String nome
+    -String email
+    -String senha
+    -String telefone
+    -TipoUsuario tipo
+    -LocalDateTime criadoEm
+    +login(email, senha) boolean
+    +recuperarSenha(email) void
+    +editarPerfil(dados) void
+  }
+
+  class Passageiro {
+    -String cpf
+    -LocalDate dataNascimento
+    -TipoDocumento tipoDocumento
+    -String numeroDocumento
+    +cadastrar() void
+    +consultarReservas() List
+  }
+
+  class Administrador {
+    +gerenciarVoos() void
+    +gerenciarTarifas() void
+    +consultarRelatorios() void
+  }
+
+  class Voo {
+    -Long id
+    -String numeroVoo
+    -String aeroportoOrigem
+    -String aeroportoDestino
+    -LocalDateTime partida
+    -LocalDateTime chegada
+    -String aeronave
+    -String portao
+    -StatusVoo status
+    +buscar(origem, destino, data) List
+    +cancelar() void
+    +atualizarStatus(status) void
+  }
+
+  class Assento {
+    -Long id
+    -String codigo
+    -ClasseVoo classe
+    -StatusAssento status
+    +verificarDisponibilidade() boolean
+    +bloquear() void
+    +liberar() void
+  }
+
+  class Tarifa {
+    -Long id
+    -ClasseVoo classe
+    -Double precoBase
+    -Integer franquiaBagagem
+    -TipoTarifa tipo
+    -Boolean permiteAlteracao
+    -Boolean permiteReembolso
+    +calcularPreco(qtdPassageiros) Double
+  }
+
+  class Reserva {
+    -Long id
+    -String localizador
+    -StatusReserva status
+    -LocalDateTime criadaEm
+    -Double valorTotal
+    +criar() void
+    +alterar(novoVoo) void
+    +cancelar() void
+    +confirmar() void
+  }
+
+  class Pagamento {
+    -Long id
+    -MetodoPagamento metodo
+    -Double valor
+    -StatusPagamento status
+    -LocalDateTime pagoEm
+    +processar() void
+    +estornar() void
+    +gerarQRCodePIX() String
+    +gerarBoleto() String
+  }
+
+  class Bilhete {
+    -Long id
+    -String urlPDF
+    -String qrCode
+    -LocalDateTime emitidoEm
+    +gerar() void
+    +enviarEmail() void
+  }
+
+  class CheckIn {
+    -Long id
+    -LocalDateTime realizadoEm
+    -String documentoApresentado
+    +realizar() void
+    +validarJanela() boolean
+  }
+
+  class CartaoEmbarque {
+    -Long id
+    -String urlPDF
+    -String qrCode
+    -String portaoEmbarque
+    -LocalTime limiteEmbarque
+    +gerar() void
+    +enviarEmail() void
+  }
+
+  class Bagagem {
+    -Long id
+    -TipoBagagem tipo
+    -Double peso
+    -Double valorExtra
+    -StatusBagagem status
+    +adicionarExtra() void
+    +calcularValor() Double
+  }
+
+  class ContaMilhas {
+    -Long id
+    -Integer saldo
+    -LocalDateTime atualizadaEm
+    +creditar(valor) void
+    +debitar(valor) void
+    +consultarSaldo() Integer
+    +expirarMilhasVencidas() void
+  }
+
+  class TransacaoMilhas {
+    -Long id
+    -Integer quantidade
+    -TipoTransacao tipo
+    -String descricao
+    -LocalDateTime data
+    -LocalDate dataExpiracao
+  }
+
+  class Notificacao {
+    -Long id
+    -TipoNotificacao tipo
+    -String mensagem
+    -LocalDateTime enviadaEm
+    +enviar() void
+  }
+
+  Usuario <|-- Passageiro : generalização
+  Usuario <|-- Administrador : generalização
+
+  Passageiro "1" --> "0..*" Reserva : realiza
+  Passageiro "1" --> "1" ContaMilhas : possui
+
+  Voo "1" *-- "1..*" Assento : compõe
+  Voo "1" *-- "1..*" Tarifa : possui
+
+  Reserva "1" --> "1" Voo : referencia
+  Reserva "1" --> "1" Assento : ocupa
+  Reserva "1" --> "1" Tarifa : contratada com
+  Reserva "1" *-- "1..*" Pagamento : gera
+  Reserva "1" *-- "0..1" Bilhete : possui
+  Reserva "1" *-- "0..1" CheckIn : registra
+  Reserva "1" *-- "0..*" Bagagem : inclui
+
+  CheckIn "1" *-- "1" CartaoEmbarque : gera
+
+  ContaMilhas "1" *-- "0..*" TransacaoMilhas : registra
+
+  Reserva "1" --> "0..*" Notificacao : origina
+  Voo "1" --> "0..*" Notificacao : origina
+`;
+
+const { svg } = await mermaid.render('dc-svg', diagram);
+document.getElementById('dc').innerHTML = svg;
+
+document.querySelectorAll('#dc svg .classLabel .label').forEach(el => {
+  el.style.fontSize = '13px';
+});
+</script>
