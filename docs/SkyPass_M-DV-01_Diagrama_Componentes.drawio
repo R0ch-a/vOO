@@ -1,0 +1,314 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="M-DV-01 Diagrama de Componentes" id="skypass-components">
+    <mxGraphModel dx="1500" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="1100" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+
+        <!-- título -->
+        <mxCell id="title" parent="1"
+          style="text;html=1;strokeColor=none;fillColor=none;align=center;fontStyle=1;fontSize=16;"
+          value="M-DV-01 — Diagrama de Componentes SkyPass" vertex="1">
+          <mxGeometry x="350" y="20" width="800" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ══════════════════════════════════
+             SISTEMA BOUNDARY
+             ══════════════════════════════════ -->
+        <mxCell id="system-boundary" parent="1"
+          style="swimlane;startSize=30;fillColor=none;strokeColor=#1F3864;strokeWidth=2;fontStyle=1;fontSize=14;dashed=0;"
+          value="SkyPass — Sistema (skypass.jar — Spring Boot 3)" vertex="1">
+          <mxGeometry x="40" y="70" width="1300" height="820" as="geometry"/>
+        </mxCell>
+
+        <!-- ══════════ M1 — AUTH ══════════ -->
+        <mxCell id="m1" parent="system-boundary"
+          style="swimlane;startSize=24;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;"
+          value="M1 — Auth &amp; DevOps" vertex="1">
+          <mxGeometry x="20" y="50" width="280" height="350" as="geometry"/>
+        </mxCell>
+        <mxCell id="m1-comp" parent="m1"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11;"
+          value="AuthController" vertex="1">
+          <mxGeometry x="60" y="40" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="m1-svc" parent="m1"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11;"
+          value="AuthService&#xa;JwtService" vertex="1">
+          <mxGeometry x="60" y="110" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="m1-repo" parent="m1"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11;"
+          value="UsuarioRepository&#xa;PassageiroRepository" vertex="1">
+          <mxGeometry x="60" y="180" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <!-- interface fornecida M1 -->
+        <mxCell id="m1-iface-out" parent="m1"
+          style="shape=mxgraph.uml.interface2;html=1;whiteSpace=wrap;labelPosition=right;align=left;"
+          value="POST /api/auth/*" vertex="1">
+          <mxGeometry x="220" y="55" width="30" height="30" as="geometry"/>
+        </mxCell>
+        <!-- dep: ctrl→svc -->
+        <mxCell id="d-m1-cs" parent="m1" style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;" edge="1" source="m1-comp" target="m1-svc">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="d-m1-sr" parent="m1" style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;" edge="1" source="m1-svc" target="m1-repo">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <!-- ══════════ M2 — BOOKING ══════════ -->
+        <mxCell id="m2" parent="system-boundary"
+          style="swimlane;startSize=24;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=12;"
+          value="M2 — Flight Search &amp; Booking" vertex="1">
+          <mxGeometry x="320" y="50" width="280" height="350" as="geometry"/>
+        </mxCell>
+        <mxCell id="m2-comp" parent="m2"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=11;"
+          value="BookingController" vertex="1">
+          <mxGeometry x="60" y="40" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="m2-svc" parent="m2"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=11;"
+          value="BookingService&#xa;FlightService&#xa;SeatService" vertex="1">
+          <mxGeometry x="60" y="110" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="m2-chain" parent="m2"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;fontStyle=2;"
+          value="«Chain of Responsibility»&#xa;ReservaValidator" vertex="1">
+          <mxGeometry x="60" y="185" width="160" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="m2-repo" parent="m2"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=11;"
+          value="ReservaRepository&#xa;VooRepository&#xa;AssentoRepository" vertex="1">
+          <mxGeometry x="60" y="238" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="m2-iface-out" parent="m2"
+          style="shape=mxgraph.uml.interface2;html=1;whiteSpace=wrap;labelPosition=right;align=left;"
+          value="POST /api/reservas/*&#xa;GET /api/voos" vertex="1">
+          <mxGeometry x="220" y="55" width="30" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="d-m2-cs" parent="m2" style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;" edge="1" source="m2-comp" target="m2-svc"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="d-m2-sc" parent="m2" style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;" edge="1" source="m2-svc" target="m2-chain"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="d-m2-cr" parent="m2" style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;" edge="1" source="m2-chain" target="m2-repo"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- ══════════ M3 — PAYMENT ══════════ -->
+        <mxCell id="m3" parent="system-boundary"
+          style="swimlane;startSize=24;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=12;"
+          value="M3 — Payment &amp; Ticket" vertex="1">
+          <mxGeometry x="620" y="50" width="280" height="350" as="geometry"/>
+        </mxCell>
+        <mxCell id="m3-comp" parent="m3"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=11;"
+          value="PaymentController" vertex="1">
+          <mxGeometry x="60" y="40" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="m3-svc" parent="m3"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=11;"
+          value="PaymentService&#xa;TicketService&#xa;RefundService" vertex="1">
+          <mxGeometry x="60" y="110" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="m3-factory" parent="m3"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10;fontStyle=2;"
+          value="«Factory»&#xa;PagamentoFactory&#xa;«Strategy»&#xa;CartaoStrategy/PixStrategy" vertex="1">
+          <mxGeometry x="60" y="185" width="160" height="55" as="geometry"/>
+        </mxCell>
+        <mxCell id="m3-repo" parent="m3"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=11;"
+          value="PagamentoRepository&#xa;BilheteRepository" vertex="1">
+          <mxGeometry x="60" y="255" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="m3-iface-out" parent="m3"
+          style="shape=mxgraph.uml.interface2;html=1;whiteSpace=wrap;labelPosition=right;align=left;"
+          value="POST /api/pagamentos/*" vertex="1">
+          <mxGeometry x="220" y="55" width="30" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="d-m3-cs" parent="m3" style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;" edge="1" source="m3-comp" target="m3-svc"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="d-m3-sf" parent="m3" style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;" edge="1" source="m3-svc" target="m3-factory"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="d-m3-fr" parent="m3" style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;" edge="1" source="m3-factory" target="m3-repo"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- ══════════ M4 — CHECKIN ══════════ -->
+        <mxCell id="m4" parent="system-boundary"
+          style="swimlane;startSize=24;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=12;"
+          value="M4 — Check-in &amp; Seats" vertex="1">
+          <mxGeometry x="920" y="50" width="280" height="350" as="geometry"/>
+        </mxCell>
+        <mxCell id="m4-comp" parent="m4"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=11;"
+          value="CheckinController" vertex="1">
+          <mxGeometry x="60" y="40" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="m4-svc" parent="m4"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=11;"
+          value="CheckinService&#xa;BoardingPassService" vertex="1">
+          <mxGeometry x="60" y="110" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="m4-repo" parent="m4"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=11;"
+          value="CheckinRepository&#xa;CartaoEmbarqueRepository" vertex="1">
+          <mxGeometry x="60" y="180" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="m4-iface-out" parent="m4"
+          style="shape=mxgraph.uml.interface2;html=1;whiteSpace=wrap;labelPosition=right;align=left;"
+          value="POST /api/checkin/*" vertex="1">
+          <mxGeometry x="220" y="55" width="30" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="d-m4-cs" parent="m4" style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;" edge="1" source="m4-comp" target="m4-svc"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="d-m4-sr" parent="m4" style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;" edge="1" source="m4-svc" target="m4-repo"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- ══════════ M5+M6+M7 — linha inferior ══════════ -->
+        <!-- M5 -->
+        <mxCell id="m5" parent="system-boundary"
+          style="swimlane;startSize=24;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=12;"
+          value="M5 — Miles &amp; Loyalty" vertex="1">
+          <mxGeometry x="20" y="430" width="280" height="250" as="geometry"/>
+        </mxCell>
+        <mxCell id="m5-comp" parent="m5"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=11;"
+          value="MilesController" vertex="1">
+          <mxGeometry x="60" y="36" width="160" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="m5-svc" parent="m5"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=11;"
+          value="MilesService&#xa;«Observer» MilhasListener" vertex="1">
+          <mxGeometry x="60" y="100" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="m5-repo" parent="m5"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=11;"
+          value="ContaMilhasRepository&#xa;TransacaoMilhasRepository" vertex="1">
+          <mxGeometry x="60" y="168" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="d-m5-cs" parent="m5" style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;" edge="1" source="m5-comp" target="m5-svc"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="d-m5-sr" parent="m5" style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;" edge="1" source="m5-svc" target="m5-repo"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- M6 -->
+        <mxCell id="m6" parent="system-boundary"
+          style="swimlane;startSize=24;fillColor=#ffe6cc;strokeColor=#d79b00;fontStyle=1;fontSize=12;"
+          value="M6 — Ancillaries" vertex="1">
+          <mxGeometry x="320" y="430" width="280" height="250" as="geometry"/>
+        </mxCell>
+        <mxCell id="m6-comp" parent="m6"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=11;"
+          value="AncillaryController" vertex="1">
+          <mxGeometry x="60" y="36" width="160" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="m6-svc" parent="m6"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=11;"
+          value="BaggageService" vertex="1">
+          <mxGeometry x="60" y="100" width="160" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="m6-repo" parent="m6"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d79b00;fontSize=11;"
+          value="BagagemRepository&#xa;TarifaRepository" vertex="1">
+          <mxGeometry x="60" y="164" width="160" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="d-m6-cs" parent="m6" style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;" edge="1" source="m6-comp" target="m6-svc"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="d-m6-sr" parent="m6" style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;" edge="1" source="m6-svc" target="m6-repo"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- M7 -->
+        <mxCell id="m7" parent="system-boundary"
+          style="swimlane;startSize=24;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=12;"
+          value="M7 — Admin &amp; QA" vertex="1">
+          <mxGeometry x="620" y="430" width="280" height="250" as="geometry"/>
+        </mxCell>
+        <mxCell id="m7-comp" parent="m7"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11;"
+          value="AdminController&#xa;ReportController" vertex="1">
+          <mxGeometry x="60" y="36" width="160" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="m7-svc" parent="m7"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11;"
+          value="AdminService&#xa;ReportService&#xa;«Observer» NotifListener" vertex="1">
+          <mxGeometry x="60" y="100" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="m7-repo" parent="m7"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=11;"
+          value="NotificacaoRepository" vertex="1">
+          <mxGeometry x="60" y="178" width="160" height="46" as="geometry"/>
+        </mxCell>
+        <mxCell id="d-m7-cs" parent="m7" style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;" edge="1" source="m7-comp" target="m7-svc"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="d-m7-sr" parent="m7" style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;" edge="1" source="m7-svc" target="m7-repo"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <!-- ══════════ DEPENDÊNCIAS ENTRE MÓDULOS ══════════ -->
+        <!-- M2 depende de M3 (pagamento na reserva) -->
+        <mxCell id="dep-m2-m3" parent="system-boundary"
+          style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;strokeColor=#d6b656;fontStyle=2;fontSize=10;"
+          value="«usa»" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="600" y="200" as="sourcePoint"/>
+            <mxPoint x="620" y="200" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- M3 publica evento → M5 e M7 (Observer) -->
+        <mxCell id="dep-m3-m5" parent="system-boundary"
+          style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;strokeColor=#9673a6;fontStyle=2;fontSize=10;"
+          value="«event»&#xa;PagamentoEvent" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="660" y="400" as="sourcePoint"/>
+            <mxPoint x="160" y="480" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep-m3-m7" parent="system-boundary"
+          style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;strokeColor=#6c8ebf;fontStyle=2;fontSize=10;"
+          value="«event»&#xa;VooAlteradoEvent" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="400" as="sourcePoint"/>
+            <mxPoint x="760" y="480" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- M4 depende de M2 (reserva para checkin) -->
+        <mxCell id="dep-m4-m2" parent="system-boundary"
+          style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;strokeColor=#82b366;fontStyle=2;fontSize=10;"
+          value="«usa» Reserva" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="920" y="220" as="sourcePoint"/>
+            <mxPoint x="600" y="220" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- M6 depende de M3 (pagamento de bagagem) -->
+        <mxCell id="dep-m6-m3" parent="system-boundary"
+          style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;strokeColor=#d6b656;fontStyle=2;fontSize=10;"
+          value="«usa» Payment" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="600" y="555" as="sourcePoint"/>
+            <mxPoint x="760" y="300" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- ══════════ SISTEMAS EXTERNOS ══════════ -->
+        <mxCell id="ext-pgto" parent="system-boundary"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;"
+          value="«external»&#xa;Gateway de Pagamento&#xa;(Stripe / Mock REST API)" vertex="1">
+          <mxGeometry x="960" y="440" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="ext-email" parent="system-boundary"
+          style="shape=mxgraph.uml.component;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1;"
+          value="«external»&#xa;Serviço de E-mail&#xa;(SendGrid / SMTP)" vertex="1">
+          <mxGeometry x="960" y="540" width="220" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="dep-m3-gw" parent="system-boundary"
+          style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;strokeColor=#d6b656;"
+          value="" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="220" as="sourcePoint"/>
+            <mxPoint x="960" y="470" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="dep-m7-email" parent="system-boundary"
+          style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;strokeColor=#d6b656;"
+          value="" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="900" y="530" as="sourcePoint"/>
+            <mxPoint x="960" y="570" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- BD -->
+        <mxCell id="db" parent="system-boundary"
+          style="shape=mxgraph.flowchart.database;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=12;fontStyle=1;"
+          value="PostgreSQL 16&#xa;(Supabase)" vertex="1">
+          <mxGeometry x="1060" y="660" width="160" height="80" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

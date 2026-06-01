@@ -1,0 +1,303 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="M-LV-02 Diagrama de Pacotes" id="skypass-packages">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="1000" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+
+        <!-- título -->
+        <mxCell id="title" parent="1"
+          style="text;html=1;strokeColor=none;fillColor=none;align=center;fontStyle=1;fontSize=16;"
+          value="M-LV-02 — Diagrama de Pacotes SkyPass (Spring Boot 3)" vertex="1">
+          <mxGeometry x="300" y="20" width="800" height="30" as="geometry"/>
+        </mxCell>
+
+        <!-- ══════════════════════════════════
+             CAMADA: APRESENTAÇÃO
+             ══════════════════════════════════ -->
+        <mxCell id="layer-presentation" parent="1"
+          style="swimlane;startSize=28;fillColor=#dae8fc;strokeColor=#6c8ebf;fontStyle=1;fontSize=13;"
+          value="«layer» Apresentação (Frontend — HTML/CSS/JS)" vertex="1">
+          <mxGeometry x="40" y="70" width="1320" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-static" parent="layer-presentation"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=12;"
+          value="com.skypass.static&#xa;resources (HTML/CSS/JS)" vertex="1">
+          <mxGeometry x="30" y="36" width="200" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-dto-req" parent="layer-presentation"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=12;"
+          value="com.skypass.dto.request" vertex="1">
+          <mxGeometry x="260" y="36" width="180" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-dto-res" parent="layer-presentation"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#6c8ebf;fontSize=12;"
+          value="com.skypass.dto.response" vertex="1">
+          <mxGeometry x="470" y="36" width="180" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- ══════════════════════════════════
+             CAMADA: CONTROLADORES
+             ══════════════════════════════════ -->
+        <mxCell id="layer-controller" parent="1"
+          style="swimlane;startSize=28;fillColor=#d5e8d4;strokeColor=#82b366;fontStyle=1;fontSize=13;"
+          value="«layer» Controladores (@RestController)" vertex="1">
+          <mxGeometry x="40" y="180" width="1320" height="110" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="pkg-auth-ctrl" parent="layer-controller"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=11;"
+          value="com.skypass&#xa;.auth.controller&#xa;AuthController" vertex="1">
+          <mxGeometry x="30" y="32" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-booking-ctrl" parent="layer-controller"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=11;"
+          value="com.skypass&#xa;.booking.controller&#xa;BookingController" vertex="1">
+          <mxGeometry x="200" y="32" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-payment-ctrl" parent="layer-controller"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=11;"
+          value="com.skypass&#xa;.payment.controller&#xa;PaymentController" vertex="1">
+          <mxGeometry x="370" y="32" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-checkin-ctrl" parent="layer-controller"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=11;"
+          value="com.skypass&#xa;.checkin.controller&#xa;CheckinController" vertex="1">
+          <mxGeometry x="540" y="32" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-loyalty-ctrl" parent="layer-controller"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=11;"
+          value="com.skypass&#xa;.loyalty.controller&#xa;MilesController" vertex="1">
+          <mxGeometry x="710" y="32" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-ancil-ctrl" parent="layer-controller"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=11;"
+          value="com.skypass&#xa;.ancillaries.controller&#xa;BaggageController" vertex="1">
+          <mxGeometry x="880" y="32" width="150" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-admin-ctrl" parent="layer-controller"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#82b366;fontSize=11;"
+          value="com.skypass&#xa;.admin.controller&#xa;AdminController" vertex="1">
+          <mxGeometry x="1050" y="32" width="150" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- ══════════════════════════════════
+             CAMADA: SERVIÇOS
+             ══════════════════════════════════ -->
+        <mxCell id="layer-service" parent="1"
+          style="swimlane;startSize=28;fillColor=#fff2cc;strokeColor=#d6b656;fontStyle=1;fontSize=13;"
+          value="«layer» Serviços (@Service — Lógica de Negócio)" vertex="1">
+          <mxGeometry x="40" y="320" width="1320" height="200" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="pkg-auth-svc" parent="layer-service"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=11;"
+          value="com.skypass.auth.service&#xa;AuthService&#xa;JwtService&#xa;UserService" vertex="1">
+          <mxGeometry x="30" y="36" width="150" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-booking-svc" parent="layer-service"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=11;"
+          value="com.skypass.booking.service&#xa;BookingService&#xa;FlightService&#xa;SeatService" vertex="1">
+          <mxGeometry x="200" y="36" width="150" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-payment-svc" parent="layer-service"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=11;"
+          value="com.skypass.payment.service&#xa;PaymentService&#xa;TicketService&#xa;RefundService" vertex="1">
+          <mxGeometry x="370" y="36" width="150" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-checkin-svc" parent="layer-service"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=11;"
+          value="com.skypass.checkin.service&#xa;CheckinService&#xa;BoardingPassService" vertex="1">
+          <mxGeometry x="540" y="36" width="150" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-loyalty-svc" parent="layer-service"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=11;"
+          value="com.skypass.loyalty.service&#xa;MilesService" vertex="1">
+          <mxGeometry x="710" y="36" width="150" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-ancil-svc" parent="layer-service"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=11;"
+          value="com.skypass.ancillaries.service&#xa;BaggageService" vertex="1">
+          <mxGeometry x="880" y="36" width="150" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-admin-svc" parent="layer-service"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#d6b656;fontSize=11;"
+          value="com.skypass.admin.service&#xa;AdminService&#xa;ReportService&#xa;NotifService" vertex="1">
+          <mxGeometry x="1050" y="36" width="150" height="80" as="geometry"/>
+        </mxCell>
+
+        <!-- padrões de projeto (pacote transversal) -->
+        <mxCell id="pkg-patterns" parent="layer-service"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1;"
+          value="com.skypass.common.pattern&#xa;PagamentoStrategy (I)&#xa;PagamentoFactory&#xa;ReservaValidator (I)&#xa;ApplicationEventPublisher" vertex="1">
+          <mxGeometry x="200" y="130" width="720" height="56" as="geometry"/>
+        </mxCell>
+
+        <!-- ══════════════════════════════════
+             CAMADA: REPOSITÓRIOS
+             ══════════════════════════════════ -->
+        <mxCell id="layer-repo" parent="1"
+          style="swimlane;startSize=28;fillColor=#f8cecc;strokeColor=#b85450;fontStyle=1;fontSize=13;"
+          value="«layer» Repositórios (@Repository — JPA / Spring Data)" vertex="1">
+          <mxGeometry x="40" y="550" width="1320" height="110" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="pkg-usuario-repo" parent="layer-repo"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=11;"
+          value="UsuarioRepository&#xa;PassageiroRepository" vertex="1">
+          <mxGeometry x="30" y="32" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-booking-repo" parent="layer-repo"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=11;"
+          value="ReservaRepository&#xa;VooRepository&#xa;AssentoRepository" vertex="1">
+          <mxGeometry x="210" y="32" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-payment-repo" parent="layer-repo"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=11;"
+          value="PagamentoRepository&#xa;BilheteRepository" vertex="1">
+          <mxGeometry x="390" y="32" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-checkin-repo" parent="layer-repo"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=11;"
+          value="CheckinRepository&#xa;CartaoEmbarqueRepository" vertex="1">
+          <mxGeometry x="570" y="32" width="180" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-loyalty-repo" parent="layer-repo"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=11;"
+          value="ContaMilhasRepository&#xa;TransacaoMilhasRepository" vertex="1">
+          <mxGeometry x="770" y="32" width="190" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-ancil-repo" parent="layer-repo"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=11;"
+          value="BagagemRepository&#xa;TarifaRepository" vertex="1">
+          <mxGeometry x="980" y="32" width="160" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-notif-repo" parent="layer-repo"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#b85450;fontSize=11;"
+          value="NotificacaoRepository" vertex="1">
+          <mxGeometry x="1160" y="32" width="140" height="60" as="geometry"/>
+        </mxCell>
+
+        <!-- ══════════════════════════════════
+             CAMADA: MODELO / ENTIDADES
+             ══════════════════════════════════ -->
+        <mxCell id="layer-model" parent="1"
+          style="swimlane;startSize=28;fillColor=#e1d5e7;strokeColor=#9673a6;fontStyle=1;fontSize=13;"
+          value="«layer» Modelo / Entidades JPA (@Entity)" vertex="1">
+          <mxGeometry x="40" y="690" width="1320" height="110" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="pkg-model-auth" parent="layer-model"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=11;"
+          value="com.skypass.model&#xa;Usuario (abstract)&#xa;Passageiro&#xa;Administrador" vertex="1">
+          <mxGeometry x="30" y="30" width="170" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-model-flight" parent="layer-model"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=11;"
+          value="com.skypass.model&#xa;Voo · Assento&#xa;Tarifa · Reserva" vertex="1">
+          <mxGeometry x="220" y="30" width="160" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-model-payment" parent="layer-model"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=11;"
+          value="com.skypass.model&#xa;Pagamento&#xa;Bilhete" vertex="1">
+          <mxGeometry x="400" y="30" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-model-checkin" parent="layer-model"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=11;"
+          value="com.skypass.model&#xa;CheckIn&#xa;CartaoEmbarque" vertex="1">
+          <mxGeometry x="570" y="30" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-model-loyalty" parent="layer-model"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=11;"
+          value="com.skypass.model&#xa;ContaMilhas&#xa;TransacaoMilhas" vertex="1">
+          <mxGeometry x="740" y="30" width="160" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-model-other" parent="layer-model"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#9673a6;fontSize=11;"
+          value="com.skypass.model&#xa;Bagagem&#xa;Notificacao" vertex="1">
+          <mxGeometry x="920" y="30" width="150" height="70" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-model-enums" parent="layer-model"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=11;fontStyle=1;"
+          value="com.skypass.model.enums&#xa;12 ENUMs (StatusReserva,&#xa;MetodoPgto, Classe...)" vertex="1">
+          <mxGeometry x="1090" y="30" width="200" height="70" as="geometry"/>
+        </mxCell>
+
+        <!-- ══════════════════════════════════
+             INFRA: banco + migrations
+             ══════════════════════════════════ -->
+        <mxCell id="layer-infra" parent="1"
+          style="swimlane;startSize=28;fillColor=#f5f5f5;strokeColor=#666666;fontStyle=1;fontSize=13;"
+          value="«infra» Banco de Dados PostgreSQL 16 + Flyway Migrations" vertex="1">
+          <mxGeometry x="40" y="830" width="1320" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-flyway" parent="layer-infra"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;"
+          value="db/migration&#xa;V1__create_enums.sql&#xa;V2__create_tables.sql" vertex="1">
+          <mxGeometry x="30" y="26" width="230" height="44" as="geometry"/>
+        </mxCell>
+        <mxCell id="pkg-postgres" parent="layer-infra"
+          style="shape=mxgraph.uml.package2;whiteSpace=wrap;html=1;fillColor=#ffffff;strokeColor=#666666;fontSize=11;"
+          value="PostgreSQL 16 — Supabase&#xa;15 tabelas + 12 ENUMs nativos" vertex="1">
+          <mxGeometry x="290" y="26" width="260" height="44" as="geometry"/>
+        </mxCell>
+
+        <!-- ══════════════════════════════════
+             DEPENDÊNCIAS ENTRE CAMADAS
+             ══════════════════════════════════ -->
+        <!-- Apresentação → Controladores -->
+        <mxCell id="dep-pres-ctrl" parent="1"
+          style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;strokeColor=#6c8ebf;fontStyle=2;fontSize=11;"
+          value="«usa»" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="160" as="sourcePoint"/>
+            <mxPoint x="680" y="180" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Controladores → Serviços -->
+        <mxCell id="dep-ctrl-svc" parent="1"
+          style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;strokeColor=#82b366;fontStyle=2;fontSize=11;"
+          value="«delega»" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="290" as="sourcePoint"/>
+            <mxPoint x="680" y="320" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Serviços → Repositórios -->
+        <mxCell id="dep-svc-repo" parent="1"
+          style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;strokeColor=#d6b656;fontStyle=2;fontSize=11;"
+          value="«persiste»" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="520" as="sourcePoint"/>
+            <mxPoint x="680" y="550" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Repositórios → Modelo -->
+        <mxCell id="dep-repo-model" parent="1"
+          style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;strokeColor=#b85450;fontStyle=2;fontSize=11;"
+          value="«mapeia»" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="660" as="sourcePoint"/>
+            <mxPoint x="680" y="690" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <!-- Modelo → BD -->
+        <mxCell id="dep-model-db" parent="1"
+          style="endArrow=open;endFill=0;dashed=1;html=1;endSize=8;strokeColor=#9673a6;fontStyle=2;fontSize=11;"
+          value="«Hibernate/JPA»" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="680" y="800" as="sourcePoint"/>
+            <mxPoint x="680" y="830" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+
+        <!-- nota -->
+        <mxCell id="note1" parent="1"
+          style="text;html=1;strokeColor=none;fillColor=none;align=left;fontSize=11;fontStyle=2;"
+          value="Regra de dependência estrita: cada camada só depende da camada imediatamente abaixo (Padrão Layered — AD-01)" vertex="1">
+          <mxGeometry x="40" y="930" width="700" height="20" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
